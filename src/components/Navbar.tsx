@@ -15,7 +15,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         <a href="#" className="flex items-center gap-2">
           <Heart className="h-7 w-7 text-primary fill-primary" />
@@ -29,7 +29,7 @@ const Navbar = () => {
               {l.label}
             </a>
           ))}
-          <Button asChild size="sm">
+          <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
             <a href="#donate">Donate Now</a>
           </Button>
         </div>
@@ -48,7 +48,7 @@ const Navbar = () => {
               {l.label}
             </a>
           ))}
-          <Button asChild size="sm" className="w-full">
+          <Button asChild size="sm" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
             <a href="#donate" onClick={() => setOpen(false)}>Donate Now</a>
           </Button>
         </div>

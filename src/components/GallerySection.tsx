@@ -16,7 +16,7 @@ const images = [
 ];
 
 const GallerySection = () => (
-  <section id="gallery" className="py-20 md:py-28 bg-muted">
+  <section id="gallery" className="py-20 md:py-28 bg-card">
     <div className="container mx-auto px-4">
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
         <p className="text-primary font-semibold uppercase tracking-wider text-sm mb-3">Gallery</p>

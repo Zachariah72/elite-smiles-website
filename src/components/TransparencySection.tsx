@@ -21,7 +21,7 @@ const TransparencySection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
-            className="bg-card rounded-xl p-6 shadow-card text-center"
+            className="bg-card rounded-xl p-6 shadow-card text-center border border-border"
           >
             <item.icon className="w-10 h-10 text-primary mx-auto mb-4" />
             <h3 className="font-display text-lg font-semibold text-foreground mb-2">{item.title}</h3>
@@ -30,7 +30,7 @@ const TransparencySection = () => (
         ))}
       </div>
       <div className="text-center mt-10">
-        <Button variant="outline" size="lg">
+        <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary/10">
           <FileText className="w-4 h-4 mr-2" />
           Download Annual Report
         </Button>
