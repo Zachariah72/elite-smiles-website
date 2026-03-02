@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 const ContactSection = () => (
-  <section id="contact" className="py-20 md:py-28 bg-muted">
+  <section id="contact" className="py-20 md:py-28 bg-card">
     <div className="container mx-auto px-4">
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
         <p className="text-primary font-semibold uppercase tracking-wider text-sm mb-3">Reach Out</p>
@@ -29,12 +29,12 @@ const ContactSection = () => (
             </a>
           ))}
         </motion.div>
-        <motion.form initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-4 bg-card p-8 rounded-xl shadow-card" onSubmit={(e) => e.preventDefault()}>
-          <Input placeholder="Your Name" className="bg-muted" />
-          <Input placeholder="Email Address" type="email" className="bg-muted" />
-          <Input placeholder="Subject" className="bg-muted" />
-          <Textarea placeholder="Your Message..." className="bg-muted" rows={4} />
-          <Button className="w-full gradient-warm shadow-warm">Send Message</Button>
+        <motion.form initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-4 bg-background p-8 rounded-xl shadow-card border border-border" onSubmit={(e) => e.preventDefault()}>
+          <Input placeholder="Your Name" className="bg-muted border-border" />
+          <Input placeholder="Email Address" type="email" className="bg-muted border-border" />
+          <Input placeholder="Subject" className="bg-muted border-border" />
+          <Textarea placeholder="Your Message..." className="bg-muted border-border" rows={4} />
+          <Button className="w-full gradient-warm shadow-warm text-primary-foreground">Send Message</Button>
         </motion.form>
       </div>
     </div>

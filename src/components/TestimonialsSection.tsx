@@ -34,7 +34,7 @@ const TestimonialsSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.15, duration: 0.6 }}
-            className="bg-card rounded-xl p-8 shadow-card relative"
+            className="bg-card rounded-xl p-8 shadow-card relative border border-border"
           >
             <Quote className="w-10 h-10 text-primary/20 absolute top-6 right-6" />
             <p className="text-muted-foreground italic leading-relaxed mb-6">"{t.quote}"</p>

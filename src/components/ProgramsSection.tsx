@@ -23,7 +23,7 @@ const programs = [
 ];
 
 const ProgramsSection = () => (
-  <section id="programs" className="py-20 md:py-28 bg-muted">
+  <section id="programs" className="py-20 md:py-28 bg-card">
     <div className="container mx-auto px-4">
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
         <p className="text-primary font-semibold uppercase tracking-wider text-sm mb-3">What We Do</p>
@@ -37,7 +37,7 @@ const ProgramsSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.15, duration: 0.6 }}
-            className="bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-shadow group"
+            className="bg-background rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-shadow group border border-border"
           >
             <div className="overflow-hidden h-56">
               <img src={p.img} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -45,7 +45,7 @@ const ProgramsSection = () => (
             <div className="p-6">
               <h3 className="font-display text-xl font-semibold text-foreground mb-3">{p.title}</h3>
               <p className="text-muted-foreground mb-5 leading-relaxed">{p.desc}</p>
-              <Button variant="outline" size="sm">Learn More</Button>
+              <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary/10">Learn More</Button>
             </div>
           </motion.div>
         ))}

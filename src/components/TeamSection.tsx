@@ -34,7 +34,7 @@ const TeamSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.15, duration: 0.6 }}
-            className="bg-card rounded-xl p-8 shadow-card hover:shadow-card-hover transition-shadow text-center"
+            className="bg-card rounded-xl p-8 shadow-card hover:shadow-card-hover transition-shadow text-center border border-border"
           >
             <div className="w-24 h-24 rounded-full gradient-warm mx-auto mb-5 flex items-center justify-center">
               <span className="font-display text-3xl font-bold text-primary-foreground">

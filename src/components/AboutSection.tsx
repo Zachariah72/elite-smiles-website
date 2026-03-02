@@ -45,7 +45,7 @@ const AboutSection = () => (
         ))}
       </div>
 
-      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} custom={0} className="mt-16 bg-muted rounded-2xl p-8 md:p-12 grid md:grid-cols-2 gap-8">
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} custom={0} className="mt-16 bg-card rounded-2xl p-8 md:p-12 grid md:grid-cols-2 gap-8 border border-border">
         <div>
           <h3 className="font-display text-2xl font-bold text-foreground mb-4">Our Mission</h3>
           <p className="text-muted-foreground leading-relaxed">

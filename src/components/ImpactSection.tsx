@@ -36,10 +36,10 @@ const StatCard = ({ value, label, suffix, inView }: { value: number; label: stri
   const count = useCountUp(value, inView);
   return (
     <div className="text-center">
-      <p className="font-display text-4xl md:text-5xl font-bold text-primary-foreground">
+      <p className="font-display text-4xl md:text-5xl font-bold text-accent">
         {count.toLocaleString()}{suffix}
       </p>
-      <p className="text-primary-foreground/70 mt-2 font-medium">{label}</p>
+      <p className="text-muted-foreground mt-2 font-medium">{label}</p>
     </div>
   );
 };
@@ -58,11 +58,11 @@ const ImpactSection = () => {
   }, []);
 
   return (
-    <section id="impact" ref={ref} className="py-20 md:py-28 gradient-warm">
+    <section id="impact" ref={ref} className="py-20 md:py-28 bg-card">
       <div className="container mx-auto px-4">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
-          <p className="text-primary-foreground/80 font-semibold uppercase tracking-wider text-sm mb-3">Our Impact</p>
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-primary-foreground">Making a Difference</h2>
+          <p className="text-primary font-semibold uppercase tracking-wider text-sm mb-3">Our Impact</p>
+          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">Making a Difference</h2>
         </motion.div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           {stats.map((s) => (
