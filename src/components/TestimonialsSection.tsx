@@ -3,7 +3,7 @@ import { Quote } from "lucide-react";
 
 const testimonials = [
   {
-    quote: "Because of Elite Smiles, I can go to school every day. I want to be a doctor and help my community. Thank you for believing in me!",
+    quote: "Because of Mabawa Uplift, I can go to school every day. I want to be a doctor and help my community. Thank you for believing in me!",
     name: "Faith M.",
     role: "Student Beneficiary",
   },
