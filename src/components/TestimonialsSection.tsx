@@ -3,17 +3,17 @@ import { Quote } from "lucide-react";
 
 const testimonials = [
   {
-    quote: "Because of Elite Smiles, I can go to school every day. I want to be a doctor and help my community. Thank you for believing in me!",
+    quote: "Because of Mabawa Uplift, I can go to school every day. I want to be a doctor and help my community. Thank you for believing in me!",
     name: "Faith M.",
     role: "Student Beneficiary",
   },
   {
-    quote: "I couldn't afford school fees for my daughter. Elite Smiles came like a miracle. Now she's top of her class and dreaming big.",
+    quote: "I couldn't afford school fees for my daughter. Mabawa Uplift came like a miracle. Now she's top of her class and dreaming big.",
     name: "Mary W.",
     role: "Parent",
   },
   {
-    quote: "Volunteering with Elite Smiles changed my life. Seeing children's faces light up when they receive school supplies is unforgettable.",
+    quote: "Volunteering with Mabawa Uplift changed my life. Seeing children's faces light up when they receive school supplies is unforgettable.",
     name: "James K.",
     role: "Volunteer",
   },

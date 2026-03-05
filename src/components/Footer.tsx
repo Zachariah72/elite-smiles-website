@@ -1,6 +1,7 @@
-import { Heart, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
+import { Facebook, Twitter, Instagram, Youtube } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import logo from "@/assets/logo.png";
 
 const Footer = () => (
   <footer className="bg-card py-16 border-t border-border">
@@ -8,8 +9,8 @@ const Footer = () => (
       <div className="grid md:grid-cols-4 gap-10 mb-12">
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <Heart className="h-6 w-6 text-primary fill-primary" />
-            <span className="font-display font-bold text-lg text-foreground">Elite Smiles</span>
+            <img src={logo} alt="Mabawa Uplift Foundation logo" className="h-10 w-10 object-contain" />
+            <span className="font-display font-bold text-lg text-foreground">Mabawa Uplift</span>
           </div>
           <p className="text-muted-foreground text-sm leading-relaxed">
             Keeping every child in school. Sharing love and smiles across Kenya and beyond.
@@ -41,7 +42,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="border-t border-border pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-muted-foreground text-sm">© {new Date().getFullYear()} Elite Smiles Charity Organization. All rights reserved.</p>
+        <p className="text-muted-foreground text-sm">© {new Date().getFullYear()} Mabawa Uplift Foundation. All rights reserved.</p>
         <div className="flex gap-4">
           {[Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
             <a key={i} href="#" className="text-muted-foreground hover:text-primary transition-colors">

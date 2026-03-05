@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Menu, X, Heart } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo.png";
 
 const navLinks = [
   { label: "About", href: "#about" },
@@ -18,8 +19,8 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         <a href="#" className="flex items-center gap-2">
-          <Heart className="h-7 w-7 text-primary fill-primary" />
-          <span className="font-display font-bold text-lg text-foreground">Elite Smiles</span>
+          <img src={logo} alt="Mabawa Uplift Foundation logo" className="h-10 w-10 object-contain" />
+          <span className="font-display font-bold text-lg text-foreground">Mabawa Uplift</span>
         </a>
 
         {/* Desktop */}

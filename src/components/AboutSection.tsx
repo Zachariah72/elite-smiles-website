@@ -21,7 +21,7 @@ const AboutSection = () => (
           Who We Are
         </motion.h2>
         <motion.p variants={fadeIn} custom={2} className="text-muted-foreground text-lg leading-relaxed">
-          Elite Smiles Charity Organization is a Kenyan-based nonprofit dedicated to keeping children in school. Born from witnessing too many bright futures cut short by poverty, lack of supplies, and school dropouts, we took action. Our mission is simple yet powerful: <strong className="text-foreground">keep every child in school</strong> and <strong className="text-foreground">share love and smiles</strong> across Kenya and beyond.
+          Mabawa Uplift Foundation is a Kenyan-based nonprofit dedicated to keeping children in school. Born from witnessing too many bright futures cut short by poverty, lack of supplies, and school dropouts, we took action. Our mission is simple yet powerful: <strong className="text-foreground">keep every child in school</strong> and <strong className="text-foreground">share love and smiles</strong> across Kenya and beyond.
         </motion.p>
       </motion.div>
 
