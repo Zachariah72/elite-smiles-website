@@ -9,8 +9,8 @@ const Footer = () => (
       <div className="grid md:grid-cols-4 gap-10 mb-12">
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <Heart className="h-6 w-6 text-primary fill-primary" />
-            <span className="font-display font-bold text-lg text-foreground">Elite Smiles</span>
+            <img src={logo} alt="Mabawa Uplift Foundation logo" className="h-10 w-10 object-contain" />
+            <span className="font-display font-bold text-lg text-foreground">Mabawa Uplift</span>
           </div>
           <p className="text-muted-foreground text-sm leading-relaxed">
             Keeping every child in school. Sharing love and smiles across Kenya and beyond.
