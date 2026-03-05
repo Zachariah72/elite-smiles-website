@@ -5,7 +5,7 @@ const team = [
   {
     name: "Abigail Isika Ndanu",
     role: "Team Lead",
-    bio: "A passionate advocate for children's education, Abigail founded Elite Smiles with a vision to ensure no child is left behind.",
+    bio: "A passionate advocate for children's education, Abigail founded Mabawa Uplift with a vision to ensure no child is left behind.",
   },
   {
     name: "Zachariah Manani",

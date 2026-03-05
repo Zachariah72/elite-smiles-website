@@ -13,7 +13,7 @@ const testimonials = [
     role: "Parent",
   },
   {
-    quote: "Volunteering with Elite Smiles changed my life. Seeing children's faces light up when they receive school supplies is unforgettable.",
+    quote: "Volunteering with Mabawa Uplift changed my life. Seeing children's faces light up when they receive school supplies is unforgettable.",
     name: "James K.",
     role: "Volunteer",
   },

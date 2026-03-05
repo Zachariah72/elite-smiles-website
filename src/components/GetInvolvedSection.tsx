@@ -67,7 +67,7 @@ const GetInvolvedSection = () => (
           <Handshake className="w-14 h-14 text-primary mx-auto mb-6" />
           <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">Corporate Partnerships</h2>
           <p className="text-muted-foreground leading-relaxed mb-8">
-            Partner with Elite Smiles to create shared value. We offer sponsorship packages, CSR programs, and collaborative opportunities that make a real difference.
+            Partner with Mabawa Uplift Foundation to create shared value. We offer sponsorship packages, CSR programs, and collaborative opportunities that make a real difference.
           </p>
           <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
             <a href="mailto:abigailisika@gmail.com">Become a Partner</a>
