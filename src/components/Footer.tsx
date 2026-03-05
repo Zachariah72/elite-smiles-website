@@ -42,7 +42,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="border-t border-border pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-muted-foreground text-sm">© {new Date().getFullYear()} Elite Smiles Charity Organization. All rights reserved.</p>
+        <p className="text-muted-foreground text-sm">© {new Date().getFullYear()} Mabawa Uplift Foundation. All rights reserved.</p>
         <div className="flex gap-4">
           {[Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
             <a key={i} href="#" className="text-muted-foreground hover:text-primary transition-colors">
