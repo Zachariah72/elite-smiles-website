@@ -1,6 +1,7 @@
-import { Heart, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
+import { Facebook, Twitter, Instagram, Youtube } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import logo from "@/assets/logo.png";
 
 const Footer = () => (
   <footer className="bg-card py-16 border-t border-border">
