@@ -8,7 +8,7 @@ const testimonials = [
     role: "Student Beneficiary",
   },
   {
-    quote: "I couldn't afford school fees for my daughter. Elite Smiles came like a miracle. Now she's top of her class and dreaming big.",
+    quote: "I couldn't afford school fees for my daughter. Mabawa Uplift came like a miracle. Now she's top of her class and dreaming big.",
     name: "Mary W.",
     role: "Parent",
   },
