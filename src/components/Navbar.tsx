@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Menu, X, LogIn, LogOut, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 import logo from "@/assets/logo.png";
 
 const navLinks = [
@@ -14,6 +16,8 @@ const navLinks = [
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
@@ -24,12 +28,26 @@ const Navbar = () => {
         </a>
 
         {/* Desktop */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-4">
           {navLinks.map((l) => (
             <a key={l.href} href={l.href} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
               {l.label}
             </a>
           ))}
+          {user ? (
+            <>
+              <Button size="sm" variant="outline" onClick={() => navigate("/membership-card")} className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                <CreditCard className="h-4 w-4 mr-1" /> My Card
+              </Button>
+              <Button size="sm" variant="ghost" onClick={signOut} className="text-muted-foreground hover:text-foreground">
+                <LogOut className="h-4 w-4 mr-1" /> Sign Out
+              </Button>
+            </>
+          ) : (
+            <Button size="sm" onClick={() => navigate("/auth")} className="bg-primary text-primary-foreground hover:bg-primary/90">
+              <LogIn className="h-4 w-4 mr-1" /> Join / Login
+            </Button>
+          )}
           <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
             <a href="#donate">Donate Now</a>
           </Button>
@@ -49,6 +67,20 @@ const Navbar = () => {
               {l.label}
             </a>
           ))}
+          {user ? (
+            <>
+              <button onClick={() => { setOpen(false); navigate("/membership-card"); }} className="block w-full text-left py-2 text-sm font-medium text-primary">
+                My Card
+              </button>
+              <button onClick={() => { setOpen(false); signOut(); }} className="block w-full text-left py-2 text-sm font-medium text-muted-foreground">
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <button onClick={() => { setOpen(false); navigate("/auth"); }} className="block w-full text-left py-2 text-sm font-medium text-primary">
+              Join / Login
+            </button>
+          )}
           <Button asChild size="sm" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
             <a href="#donate" onClick={() => setOpen(false)}>Donate Now</a>
           </Button>
