@@ -1,40 +1,54 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Menu, X, LogIn, LogOut, CreditCard } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Menu, X, LogIn, LogOut, CreditCard, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import logo from "@/assets/logo.png";
+import { org } from "@/config/site";
 
-const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Impact", href: "#impact" },
-  { label: "Programs", href: "#programs" },
-  { label: "Projects", href: "#projects" },
-  { label: "Team", href: "#team" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Contact", href: "#contact" },
+export const navLinks = [
+  { label: "Home", to: "/" },
+  { label: "About Us", to: "/about" },
+  { label: "Our Programs", to: "/programs" },
+  { label: "Our Projects", to: "/projects" },
+  { label: "Impact", to: "/impact" },
+  { label: "Get Involved", to: "/get-involved" },
+  { label: "Partnerships", to: "/partnerships" },
+  { label: "News & Stories", to: "/news" },
+  { label: "Contact", to: "/contact" },
 ];
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => setOpen(false), [location.pathname]);
+
+  const linkClass = ({ isActive }: { isActive: boolean }) =>
+    `text-sm font-medium transition-colors ${isActive ? "text-primary" : "text-muted-foreground hover:text-primary"}`;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
-      <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        <a href="#" className="flex items-center gap-2">
-          <img src={logo} alt="Mabawa Uplift Foundation logo" className="h-10 w-10 object-contain" />
-          <span className="font-display font-bold text-lg text-foreground">Mabawa Uplift</span>
-        </a>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
+      <nav aria-label="Main navigation" className="container mx-auto flex items-center justify-between h-16 px-4 gap-4">
+        <Link to="/" className="flex items-center gap-2 shrink-0" aria-label={`${org.name} home`}>
+          <img src={logo} alt={`${org.name} logo`} className="h-10 w-10 object-contain" width={40} height={40} />
+          <span className="font-display font-bold text-base sm:text-lg text-foreground leading-none">
+            Mabawa Uplift
+            <span className="block text-[10px] font-body font-normal tracking-wide text-primary">{org.motto}</span>
+          </span>
+        </Link>
 
-        {/* Desktop */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden xl:flex items-center gap-5">
           {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+            <NavLink key={l.to} to={l.to} className={linkClass} end={l.to === "/"}>
               {l.label}
-            </a>
+            </NavLink>
           ))}
+        </div>
+
+        <div className="hidden xl:flex items-center gap-2">
           {user ? (
             <>
               <Button size="sm" variant="outline" onClick={() => navigate("/membership-card")} className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
@@ -45,49 +59,47 @@ const Navbar = () => {
               </Button>
             </>
           ) : (
-            <Button size="sm" onClick={() => navigate("/auth")} className="bg-primary text-primary-foreground hover:bg-primary/90">
+            <Button size="sm" variant="ghost" onClick={() => navigate("/auth")} className="text-muted-foreground hover:text-foreground">
               <LogIn className="h-4 w-4 mr-1" /> Join / Login
             </Button>
           )}
-          <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
-            <a href="#donate">Donate Now</a>
+          <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">
+            <Link to="/donate"><Heart className="h-4 w-4 mr-1" /> Donate</Link>
           </Button>
         </div>
 
-        {/* Mobile toggle */}
-        <button className="md:hidden text-foreground" onClick={() => setOpen(!open)}>
+        <button
+          className="xl:hidden text-foreground p-2 -mr-2"
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-label={open ? "Close menu" : "Open menu"}
+        >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
-      </div>
+      </nav>
 
-      {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-background border-b border-border px-4 pb-4 space-y-2">
+        <div className="xl:hidden bg-background border-b border-border px-4 pb-5 pt-1 space-y-1 max-h-[80vh] overflow-y-auto">
           {navLinks.map((l) => (
-            <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="block py-2 text-sm font-medium text-muted-foreground hover:text-primary">
+            <NavLink key={l.to} to={l.to} end={l.to === "/"} className={({ isActive }) => `block py-2.5 text-sm font-medium border-b border-border/50 ${isActive ? "text-primary" : "text-muted-foreground"}`}>
               {l.label}
-            </a>
+            </NavLink>
           ))}
+          <Link to="/governance" className="block py-2.5 text-sm font-medium text-muted-foreground border-b border-border/50">Governance</Link>
           {user ? (
             <>
-              <button onClick={() => { setOpen(false); navigate("/membership-card"); }} className="block w-full text-left py-2 text-sm font-medium text-primary">
-                My Card
-              </button>
-              <button onClick={() => { setOpen(false); signOut(); }} className="block w-full text-left py-2 text-sm font-medium text-muted-foreground">
-                Sign Out
-              </button>
+              <Link to="/membership-card" className="block py-2.5 text-sm font-medium text-primary">My Card</Link>
+              <button onClick={signOut} className="block w-full text-left py-2.5 text-sm font-medium text-muted-foreground">Sign Out</button>
             </>
           ) : (
-            <button onClick={() => { setOpen(false); navigate("/auth"); }} className="block w-full text-left py-2 text-sm font-medium text-primary">
-              Join / Login
-            </button>
+            <Link to="/auth" className="block py-2.5 text-sm font-medium text-primary">Join / Login</Link>
           )}
-          <Button asChild size="sm" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-            <a href="#donate" onClick={() => setOpen(false)}>Donate Now</a>
+          <Button asChild size="sm" className="w-full mt-3 bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">
+            <Link to="/donate">Donate / Support Us</Link>
           </Button>
         </div>
       )}
-    </nav>
+    </header>
   );
 };
 
