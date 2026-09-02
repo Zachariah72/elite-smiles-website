@@ -1,15 +1,19 @@
 import { motion } from "framer-motion";
 import { Facebook, Twitter, Linkedin } from "lucide-react";
+import abigail from "@/assets/abigail-isika.jpg.asset.json";
+import zachariah from "@/assets/zachariah-manani.jpg.asset.json";
 
 const team = [
   {
     name: "Abigail Isika Ndanu",
     role: "Team Lead",
+    photo: abigail.url,
     bio: "A passionate advocate for children's education, Abigail founded Mabawa Uplift with a vision to ensure no child is left behind.",
   },
   {
     name: "Zachariah Manani",
     role: "Assistant Lead",
+    photo: zachariah.url,
     bio: "Zachariah brings strategic leadership and a deep commitment to community empowerment, driving our programs forward.",
   },
   {
@@ -36,11 +40,20 @@ const TeamSection = () => (
             transition={{ delay: i * 0.15, duration: 0.6 }}
             className="bg-card rounded-xl p-8 shadow-card hover:shadow-card-hover transition-shadow text-center border border-border"
           >
-            <div className="w-24 h-24 rounded-full gradient-warm mx-auto mb-5 flex items-center justify-center">
-              <span className="font-display text-3xl font-bold text-primary-foreground">
-                {t.name.split(" ").map(n => n[0]).join("")}
-              </span>
-            </div>
+            {t.photo ? (
+              <img
+                src={t.photo}
+                alt={`${t.name}, ${t.role} at Mabawa Uplift Foundation`}
+                className="w-24 h-24 rounded-full mx-auto mb-5 object-cover object-top border-2 border-primary/40"
+                loading="lazy"
+              />
+            ) : (
+              <div className="w-24 h-24 rounded-full gradient-warm mx-auto mb-5 flex items-center justify-center">
+                <span className="font-display text-3xl font-bold text-primary-foreground">
+                  {t.name.split(" ").map(n => n[0]).join("")}
+                </span>
+              </div>
+            )}
             <h3 className="font-display text-xl font-semibold text-foreground">{t.name}</h3>
             <p className="text-primary font-medium text-sm mb-3">{t.role}</p>
             <p className="text-muted-foreground text-sm leading-relaxed mb-5">{t.bio}</p>
