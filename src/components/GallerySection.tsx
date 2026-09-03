@@ -3,16 +3,12 @@ import athena1 from "@/assets/athena-1.jpg";
 import athena2 from "@/assets/athena-2.jpg";
 import athena3 from "@/assets/athena-3.jpg";
 import athena4 from "@/assets/athena-4.jpg";
-import g1 from "@/assets/gallery-1.jpg";
-import g2 from "@/assets/gallery-2.jpg";
 
 const images = [
   { src: athena2, alt: "Mabawa Uplift volunteers addressing learners at Athena School, Thika" },
   { src: athena1, alt: "Distributing sanitary towels to learners during the Athena School outreach" },
   { src: athena4, alt: "A volunteer talking with a learner during the endometriosis awareness outreach" },
   { src: athena3, alt: "Team receiving Marvel Girl sanitary towel donations from Marvel Five Investments" },
-  { src: g1, alt: "Children playing at school" },
-  { src: g2, alt: "Volunteers painting a school" },
 ];
 
 const GallerySection = () => (
