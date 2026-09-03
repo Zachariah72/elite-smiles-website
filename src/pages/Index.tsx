@@ -25,6 +25,7 @@ const Index = () => (
     <ProjectsSection />
     <SmartFarmSection />
     <TeamSection />
+    <RepresentativesSection />
     <GallerySection />
     <PartnersSection />
     <TestimonialsSection />
