@@ -15,6 +15,7 @@ export const navLinks = [
   { label: "Get Involved", to: "/get-involved" },
   { label: "Partnerships", to: "/partnerships" },
   { label: "News & Stories", to: "/news" },
+  { label: "Governance", to: "/governance" },
   { label: "Contact", to: "/contact" },
 ];
 
@@ -85,7 +86,6 @@ const Navbar = () => {
               {l.label}
             </NavLink>
           ))}
-          <Link to="/governance" className="block py-2.5 text-sm font-medium text-muted-foreground border-b border-border/50">Governance</Link>
           {user ? (
             <>
               <Link to="/membership-card" className="block py-2.5 text-sm font-medium text-primary">My Card</Link>
