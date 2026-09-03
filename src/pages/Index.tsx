@@ -6,6 +6,7 @@ import ProgramsSection from "@/components/ProgramsSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import SmartFarmSection from "@/components/SmartFarmSection";
 import TeamSection from "@/components/TeamSection";
+import RepresentativesSection from "@/components/RepresentativesSection";
 import GallerySection from "@/components/GallerySection";
 import PartnersSection from "@/components/PartnersSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
