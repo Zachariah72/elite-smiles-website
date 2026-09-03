@@ -277,11 +277,19 @@ export const leadership = [
 
 export const foundingMembers = ["Arnold", "Cynthia Wambura", "Ruth Kerubo"];
 
-export type Representative = { name: string; country: string; county: string; subCounty?: string; community?: string };
+export type Representative = {
+  name: string;
+  role?: string;
+  photo?: string;
+  country: string;
+  county: string;
+  subCounty?: string;
+  community?: string;
+};
 
 export const representatives: Representative[] = [
-  { name: "Kevin Ombui", country: "Kenya", county: "Kisii County" },
-  { name: "Rueben Makana", country: "Kenya", county: "Kisii County" },
+  { name: "Kevin Ombui", role: "Head, Kisii County", photo: "kevin-ombui.png", country: "Kenya", county: "Kisii County" },
+  { name: "Rueben Makana", role: "Deputy, Kisii County", photo: "rueben-makana.png", country: "Kenya", county: "Kisii County" },
 ];
 
 export const membershipBenefits = [
