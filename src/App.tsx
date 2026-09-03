@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import MembershipCardPage from "./pages/MembershipCardPage";
 import Verify from "./pages/Verify";
 import AdminDashboard from "./pages/AdminDashboard";
+import Governance from "./pages/Governance";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/membership-card" element={<MembershipCardPage />} />
             <Route path="/verify/:memberNo" element={<Verify />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/governance" element={<Governance />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
