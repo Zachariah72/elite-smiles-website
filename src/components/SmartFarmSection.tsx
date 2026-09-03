@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Cpu, Droplets, Fish, Sprout, Sun, Users } from "lucide-react";
-import farmAsset from "@/assets/smart-farm.jpg.asset.json";
+import farmAsset from "@/assets/smart-farm.jpg";
 
 const pillars = [
   { icon: Fish, title: "Livestock & Aquaculture", desc: "Integrated piggery and fish production sharing water, feed and waste streams." },
@@ -33,7 +33,7 @@ const SmartFarmSection = () => (
         className="rounded-2xl overflow-hidden border border-border shadow-card mb-12"
       >
         <img
-          src={farmAsset.url}
+          src={farmAsset}
           alt="Integrated smart farm at Ruaka with livestock pens, aquaculture ponds and seedling beds"
           className="w-full h-64 md:h-[420px] object-cover"
           loading="lazy"

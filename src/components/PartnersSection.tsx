@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import m5Logo from "@/assets/m5-logo.png.asset.json";
+import m5Logo from "@/assets/m5-logo.png";
 
 const PartnersSection = () => (
   <section id="partners" className="py-20 md:py-24 bg-background">
@@ -19,7 +19,7 @@ const PartnersSection = () => (
         className="max-w-xl mx-auto bg-card border border-border rounded-2xl p-8 shadow-card text-center"
       >
         <img
-          src={m5Logo.url}
+          src={m5Logo}
           alt="Marvel Five Investments Ltd (M5) logo"
           className="h-16 mx-auto object-contain bg-white rounded-lg p-2 mb-5"
           loading="lazy"

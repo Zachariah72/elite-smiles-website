@@ -1,19 +1,19 @@
 import { motion } from "framer-motion";
 import { Facebook, Twitter, Linkedin } from "lucide-react";
-import abigail from "@/assets/abigail-isika.jpg.asset.json";
-import zachariah from "@/assets/zachariah-manani.jpg.asset.json";
+import abigail from "@/assets/abigail-isika.jpg";
+import zachariah from "@/assets/zachariah-manani.jpg";
 
 const team = [
   {
     name: "Abigail Isika Ndanu",
     role: "Team Lead",
-    photo: abigail.url,
+    photo: abigail,
     bio: "A passionate advocate for children's education, Abigail founded Mabawa Uplift with a vision to ensure no child is left behind.",
   },
   {
     name: "Zachariah Manani",
     role: "Assistant Lead",
-    photo: zachariah.url,
+    photo: zachariah,
     bio: "Zachariah brings strategic leadership and a deep commitment to community empowerment, driving our programs forward.",
   },
   {
