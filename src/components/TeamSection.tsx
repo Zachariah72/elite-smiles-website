@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Facebook, Twitter, Linkedin } from "lucide-react";
 import abigail from "@/assets/abigail-isika.jpg";
-import zachariah from "@/assets/zachariah-manani.jpg";
+import zachariah from "@/assets/zachariah-manani.png";
 
 const team = [
   {
