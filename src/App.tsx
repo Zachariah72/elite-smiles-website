@@ -11,6 +11,8 @@ import MembershipCardPage from "./pages/MembershipCardPage";
 import Verify from "./pages/Verify";
 import AdminDashboard from "./pages/AdminDashboard";
 import Governance from "./pages/Governance";
+import Programs from "./pages/Programs";
+import Projects from "./pages/Projects";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +32,8 @@ const App = () => (
             <Route path="/verify/:memberNo" element={<Verify />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/governance" element={<Governance />} />
+            <Route path="/programs" element={<Programs />} />
+            <Route path="/projects" element={<Projects />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
