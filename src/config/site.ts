@@ -133,6 +133,7 @@ export type Project = {
   time?: string;
   target?: string;
   activities: string[];
+  poster?: string;
 };
 
 export const projects: Project[] = [
@@ -143,6 +144,7 @@ export const projects: Project[] = [
     location: "Kenyenya School Grounds, Kisii County",
     date: "19 October 2026",
     time: "8:00 AM – 6:00 PM",
+    poster: "/__l5e/assets-v1/79cd786d-6f43-4b2a-914b-545c1add6c40/kenyenya-poster.png",
     activities: [
       "Medical consultations",
       "Dental check-ups",
