@@ -34,6 +34,14 @@ const Programs = () => (
               transition={{ delay: i * 0.1, duration: 0.5 }}
               className="bg-card rounded-2xl p-7 border border-border shadow-card hover:shadow-card-hover transition-shadow"
             >
+              {p.poster && (
+                <img
+                  src={p.poster}
+                  alt={`${p.title} poster`}
+                  loading="lazy"
+                  className="w-full rounded-xl border border-border mb-5"
+                />
+              )}
               <span className="inline-block text-xs font-semibold uppercase tracking-wider text-accent mb-2">
                 {p.status}
               </span>
