@@ -6,22 +6,22 @@ import { Button } from "@/components/ui/button";
 import { projects } from "@/config/site";
 import athena1 from "@/assets/athena-1.jpg";
 import athena2 from "@/assets/athena-2.jpg";
+import athena3 from "@/assets/athena-3.jpg";
 import athena4 from "@/assets/athena-4.jpg";
 import athena5 from "@/assets/athena-5.jpg";
-import programSchool from "@/assets/program-school.jpg";
-import programSupplies from "@/assets/program-supplies.jpg";
-import programOutreach from "@/assets/program-outreach.jpg";
+import athena6 from "@/assets/athena-6.jpg";
 import smartFarm from "@/assets/smart-farm.jpg";
+import kenyenyaPoster from "@/assets/kenyenya-poster.png.asset.json";
 
-const slides = [
+const slides: { src: string; alt: string; contain?: boolean }[] = [
   { src: athena2, alt: "Mabawa Uplift volunteers addressing learners at Athena School, Thika" },
-  { src: programOutreach, alt: "Community outreach in session" },
+  { src: kenyenyaPoster.url, alt: "Poster for the Kenyenya Community Outreach on 19 October 2026", contain: true },
   { src: athena5, alt: "A learner receiving sanitary towels during the Athena School outreach" },
   { src: smartFarm, alt: "The Integrated Smart Farm in Ruaka" },
-  { src: programSchool, alt: "Keep a Child in School initiative" },
   { src: athena1, alt: "Distributing sanitary towels to learners at Athena School" },
-  { src: programSupplies, alt: "School supplies and uniform drive" },
+  { src: athena3, alt: "Team receiving Marvel Girl sanitary towel donations from Marvel Five Investments" },
   { src: athena4, alt: "A volunteer talking with a learner during the outreach" },
+  { src: athena6, alt: "Volunteers sorting donations before distribution at Athena School" },
 ];
 
 const upcoming = projects.filter((p) => p.status === "Upcoming / Proposed").slice(0, 3);
@@ -35,7 +35,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
       <AnimatePresence mode="sync">
         <motion.img
           key={index}
@@ -45,7 +45,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, x: 0, scale: 1 }}
           exit={{ opacity: 0, x: -60, scale: 1.02 }}
           transition={{ duration: 1.2, ease: "easeInOut" }}
-          className="absolute inset-0 w-full h-full object-cover"
+          className={`absolute inset-0 w-full h-full ${slides[index].contain ? "object-contain" : "object-cover"}`}
         />
       </AnimatePresence>
       <div className="absolute inset-0" style={{ background: "var(--gradient-hero-overlay)" }} />
@@ -74,13 +74,13 @@ const HeroSection = () => {
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-lg px-8">
-            <a href="#donate">Donate Now</a>
+            <Link to="/donate">Donate Now</Link>
           </Button>
           <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10 text-lg px-8">
-            <a href="#volunteer">Volunteer</a>
+            <Link to="/get-involved">Volunteer</Link>
           </Button>
           <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10 text-lg px-8">
-            <a href="#partner">Partner With Us</a>
+            <Link to="/partnerships">Partner With Us</Link>
           </Button>
         </motion.div>
 
