@@ -55,17 +55,17 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="font-display text-4xl sm:text-5xl md:text-7xl font-bold text-foreground mb-6 leading-tight"
+          className="font-display text-4xl sm:text-5xl md:text-7xl font-bold text-on-media mb-6 leading-tight"
         >
-          Keeping Smiles<br />in School
+          Giving Wings<br />to Hope
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 font-body"
+          className="text-on-media-muted text-lg md:text-xl max-w-2xl mx-auto mb-10 font-body"
         >
-          Empowering every child in Kenya with education, love, and the chance to build a brighter future.
+          Empowering communities. Inspiring young people. Creating lasting impact.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -73,14 +73,11 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
+          <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8">
+            <Link to="/get-involved">Get Involved</Link>
+          </Button>
           <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-lg px-8">
-            <Link to="/donate">Donate Now</Link>
-          </Button>
-          <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10 text-lg px-8">
-            <Link to="/get-involved">Volunteer</Link>
-          </Button>
-          <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10 text-lg px-8">
-            <Link to="/partnerships">Partner With Us</Link>
+            <Link to="/donate">Support Our Work</Link>
           </Button>
         </motion.div>
 
@@ -91,13 +88,13 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mt-14"
           >
-            <p className="text-accent font-semibold uppercase tracking-wider text-xs mb-4">Upcoming Outreaches</p>
+            <p className="text-on-media font-semibold uppercase tracking-wider text-xs mb-4">Upcoming Outreaches</p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
               {upcoming.map((p) => (
                 <Link
                   key={p.slug}
                   to="/programs"
-                  className="text-left bg-card/80 backdrop-blur border border-border rounded-xl p-4 hover:border-accent transition-colors"
+                  className="text-left bg-background/92 backdrop-blur border border-border rounded-xl p-4 hover:border-primary transition-colors shadow-card"
                 >
                   <h3 className="font-display font-semibold text-foreground text-base mb-2">{p.title}</h3>
                   {p.date && (
@@ -106,7 +103,7 @@ const HeroSection = () => {
                     </p>
                   )}
                   <p className="flex items-start gap-2 text-sm text-muted-foreground mt-1">
-                    <MapPin className="h-4 w-4 text-primary mt-0.5 shrink-0" /> {p.location}
+                    <MapPin className="h-4 w-4 text-accent mt-0.5 shrink-0" /> {p.location}
                   </p>
                 </Link>
               ))}
@@ -121,7 +118,7 @@ const HeroSection = () => {
             key={s.alt}
             aria-label={`Show slide ${i + 1}`}
             onClick={() => setIndex(i)}
-            className={`h-2 rounded-full transition-all ${i === index ? "w-6 bg-accent" : "w-2 bg-foreground/40"}`}
+            className={`h-2 rounded-full transition-all ${i === index ? "w-6 bg-accent" : "w-2 bg-background/60"}`}
           />
         ))}
       </div>
