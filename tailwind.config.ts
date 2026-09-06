@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['Playfair Display', 'serif'],
-        body: ['DM Sans', 'sans-serif'],
+        display: ['Outfit', 'system-ui', 'sans-serif'],
+        body: ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -52,6 +52,11 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         royal: "hsl(var(--royal))",
+        leaf: "hsl(var(--leaf))",
+        olive: "hsl(var(--olive))",
+        terracotta: "hsl(var(--terracotta))",
+        sand: "hsl(var(--sand))",
+        cream: "hsl(var(--cream))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
