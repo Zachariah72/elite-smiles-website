@@ -14,6 +14,47 @@ export type Database = {
   }
   public: {
     Tables: {
+      engagement_submissions: {
+        Row: {
+          content_id: string | null
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          kind: string
+          payload: Json
+          status: string
+        }
+        Insert: {
+          content_id?: string | null
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          kind: string
+          payload?: Json
+          status?: string
+        }
+        Update: {
+          content_id?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          kind?: string
+          payload?: Json
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "engagement_submissions_content_id_fkey"
+            columns: ["content_id"]
+            isOneToOne: false
+            referencedRelation: "platform_content"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       members: {
         Row: {
           created_at: string
@@ -59,6 +100,90 @@ export type Database = {
         }
         Relationships: []
       }
+      platform_content: {
+        Row: {
+          body: string
+          category: string
+          created_at: string
+          deadline: string | null
+          details: Json
+          excerpt: string
+          featured: boolean
+          gallery: Json
+          id: string
+          image_url: string | null
+          kind: string
+          published_at: string
+          slug: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string
+          category?: string
+          created_at?: string
+          deadline?: string | null
+          details?: Json
+          excerpt?: string
+          featured?: boolean
+          gallery?: Json
+          id?: string
+          image_url?: string | null
+          kind: string
+          published_at?: string
+          slug: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          category?: string
+          created_at?: string
+          deadline?: string | null
+          details?: Json
+          excerpt?: string
+          featured?: boolean
+          gallery?: Json
+          id?: string
+          image_url?: string | null
+          kind?: string
+          published_at?: string
+          slug?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      platform_subscribers: {
+        Row: {
+          categories: Json
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          unsubscribe_token: string
+        }
+        Insert: {
+          categories?: Json
+          created_at?: string
+          email: string
+          full_name?: string
+          id?: string
+          unsubscribe_token?: string
+        }
+        Update: {
+          categories?: Json
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          unsubscribe_token?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
@@ -89,6 +214,30 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      submit_engagement: {
+        Args: {
+          _content_id?: string
+          _email: string
+          _kind: string
+          _name: string
+          _payload: Json
+        }
+        Returns: string
+      }
+      subscribe_platform: {
+        Args: { _categories?: Json; _email: string; _name?: string }
+        Returns: string
+      }
+      unsubscribe_platform: { Args: { _token: string }; Returns: boolean }
+      verify_member: {
+        Args: { _member_no: string }
+        Returns: {
+          date_joined: string
+          full_name: string
+          member_no: string
+          membership_type: string
+        }[]
       }
     }
     Enums: {
