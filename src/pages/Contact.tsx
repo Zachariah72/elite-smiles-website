@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
-import ContactSection from "@/components/ContactSection";
+import EngagementForm from "@/features/platform/EngagementForm";
+import { Section } from "@/features/platform/Shared";
 import CTABand from "@/components/CTABand";
 import { contact, socials } from "@/config/site";
 import { Mail, Phone, MapPin, Instagram, Music2 } from "lucide-react";
@@ -47,7 +48,7 @@ const Contact = () => (
       </div>
     </section>
 
-    <ContactSection />
+    <Section title="Send a Message"><div className="max-w-4xl"><EngagementForm kind="contact" cta="Send Message" /></div></Section>
     <CTABand />
   </Layout>
 );

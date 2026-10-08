@@ -1,46 +1,8 @@
-import Layout from "@/components/Layout";
-import PageHeader from "@/components/PageHeader";
-import PartnersSection from "@/components/PartnersSection";
-import CTABand from "@/components/CTABand";
-import { contact } from "@/config/site";
-import { Button } from "@/components/ui/button";
-import { Building2, School, HeartHandshake, Leaf } from "lucide-react";
-
-const areas = [
-  { icon: School, title: "Schools & Institutions", desc: "Host outreaches, mental health talks, menstrual health sessions and environmental clubs." },
-  { icon: Building2, title: "Corporate Partners", desc: "Sponsor an outreach, donate products or support youth skills and green enterprise work." },
-  { icon: HeartHandshake, title: "Community Organisations", desc: "Co-deliver programs, share volunteers and reach more households together." },
-  { icon: Leaf, title: "Environmental Allies", desc: "Work with Project Green Kenya on collection, recycling and green skills training." },
-];
-
-const Partnerships = () => (
-  <Layout>
-    <PageHeader
-      eyebrow="Partnerships"
-      title="Partner With Mabawa"
-      subtitle="We build honest, practical partnerships with schools, companies, county offices and community groups across Kenya."
-    />
-    <section className="py-16 md:py-24 bg-background">
-      <div className="container mx-auto px-4 grid sm:grid-cols-2 gap-6">
-        {areas.map(({ icon: Icon, ...a }) => (
-          <article key={a.title} className="bg-card border border-border rounded-2xl p-8 shadow-card">
-            <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
-              <Icon className="h-6 w-6 text-accent" />
-            </div>
-            <h2 className="font-display text-xl font-bold text-foreground mb-3">{a.title}</h2>
-            <p className="text-muted-foreground leading-relaxed">{a.desc}</p>
-          </article>
-        ))}
-      </div>
-      <div className="container mx-auto px-4 mt-10 text-center">
-        <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-          <a href={`mailto:${contact.email}?subject=Partnership%20with%20Mabawa%20Uplift%20Foundation`}>Start a Partnership Conversation</a>
-        </Button>
-      </div>
-    </section>
-    <PartnersSection />
-    <CTABand />
-  </Layout>
-);
-
-export default Partnerships;
+import Layout from '@/components/Layout';
+import PageHeader from '@/components/PageHeader';
+import CTABand from '@/components/CTABand';
+import EngagementForm from '@/features/platform/EngagementForm';
+import { Section, PartnersDirectory } from '@/features/platform/Shared';
+import { partnerCategories } from '@/features/platform/data';
+const models=[['Program Partnership','Collaborate on a specific community programme or project.'],['Technical Partnership','Provide professional knowledge, expertise, training or technical assistance.'],['Resource Partnership','Provide equipment, materials, services or other resources.'],['Financial Support','Support a programme or project through funding, sponsorship or grants.'],['Knowledge & Training','Provide mentorship, workshops, training or professional development.'],['Media Partnership','Support community initiatives through awareness, storytelling and media coverage.'],['Volunteer Partnership','Mobilize professionals or employees to contribute time and skills.'],['Referral & Opportunity Partnership','Connect young people and communities to employment, education, training, internships and other opportunities.']];
+const Partnerships=()=> <Layout><PageHeader eyebrow="Partnerships" title="Partnerships That Turn Ideas Into Impact" subtitle="Mabawa Uplift Foundation believes that meaningful community change is stronger when communities, institutions, professionals, businesses and organizations work together."/><Section title="Why Partner With Mabawa?"><p className="text-muted-foreground text-lg leading-relaxed max-w-3xl">Partnerships allow us to combine community knowledge, technical expertise, resources, networks and opportunities to create stronger and more sustainable initiatives.</p></Section><Section title="Who Can Partner With Us?" tone><div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">{partnerCategories.map(c=><div key={c} className="border-b border-border py-4 font-display font-semibold">{c}</div>)}</div></Section><Section title="Partnership Models"><div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">{models.map(([t,b])=><article key={t} className="p-6 border border-border rounded-lg"><h3 className="font-display text-lg text-primary font-bold mb-4">{t}</h3><p className="text-muted-foreground text-sm leading-relaxed">{b}</p></article>)}</div></Section><Section id="partner-form" title="Start a Partnership" tone><div className="max-w-4xl"><EngagementForm kind="partnership" cta="Start a Partnership" confirmation="Thank you for your interest in partnering with Mabawa Uplift Foundation. Our team will review your proposal and contact you."/></div></Section><Section title="Current Partners"><PartnersDirectory/></Section><CTABand title="Let’s Build Something That Matters." actions={[{label:'Start a Partnership',to:'/partnerships#partner-form'},{label:'Support a Project',to:'/donate#projects'},{label:'Contact Us',to:'/contact'}]}/></Layout>;export default Partnerships;

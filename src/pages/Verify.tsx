@@ -9,20 +9,17 @@ import type { Tables } from "@/integrations/supabase/types";
 const Verify = () => {
   const { memberNo } = useParams();
   const navigate = useNavigate();
-  const [member, setMember] = useState<Tables<"members"> | null>(null);
+  const [member, setMember] = useState<Pick<Tables<"members">, "full_name" | "member_no" | "membership_type" | "date_joined"> | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     if (memberNo) {
       supabase
-        .from("members")
-        .select("*")
-        .eq("member_no", memberNo)
-        .maybeSingle()
+        .rpc("verify_member", { _member_no: memberNo })
         .then(({ data }) => {
-          if (data) {
-            setMember(data);
+          if (data?.[0]) {
+            setMember(data[0]);
           } else {
             setNotFound(true);
           }
@@ -68,9 +65,6 @@ const Verify = () => {
                 <CheckCircle className="h-16 w-16 mx-auto text-accent" />
                 <p className="text-accent font-bold text-lg">Verified Member ✓</p>
                 <div className="text-left space-y-2 bg-muted rounded-lg p-4">
-                  {member.photo_url && (
-                    <img src={member.photo_url} alt={member.full_name} className="w-20 h-20 rounded-lg object-cover mx-auto mb-3" />
-                  )}
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     <span className="text-muted-foreground">Name:</span>
                     <span className="text-foreground font-medium">{member.full_name}</span>
