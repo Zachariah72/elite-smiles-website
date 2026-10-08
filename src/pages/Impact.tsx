@@ -1,61 +1,9 @@
-import Layout from "@/components/Layout";
-import PageHeader from "@/components/PageHeader";
-import GallerySection from "@/components/GallerySection";
-import TransparencySection from "@/components/TransparencySection";
-import CTABand from "@/components/CTABand";
-import { impactStats, impactAreas, impactTimeline } from "@/config/site";
-
-const Impact = () => (
-  <Layout>
-    <PageHeader
-      eyebrow="Our Impact"
-      title="Impact & Accountability"
-      subtitle="We publish only verified figures. Reporting grows with every outreach we complete."
-    />
-
-    <section className="py-16 md:py-24 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="grid sm:grid-cols-3 gap-6 mb-16">
-          {impactStats.map((s) => (
-            <div key={s.label} className="bg-card border border-border rounded-2xl p-7 text-center">
-              <p className="font-display text-3xl md:text-4xl font-bold text-accent">
-                {"prefix" in s && s.prefix ? s.prefix : ""}
-                {s.value.toLocaleString()}
-                {s.suffix}
-              </p>
-              <p className="text-muted-foreground text-sm mt-3 leading-relaxed">{s.label}</p>
-            </div>
-          ))}
-        </div>
-
-        <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-8">Where We Measure Impact</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
-          {impactAreas.map((a) => (
-            <div key={a.label} className="bg-card border border-border rounded-xl p-5">
-              <h3 className="font-display font-semibold text-foreground mb-1">{a.label}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{a.note}</p>
-            </div>
-          ))}
-        </div>
-
-        <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-8">Our Journey</h2>
-        <ol className="relative border-l border-border ml-3 space-y-8">
-          {impactTimeline.map((t) => (
-            <li key={t.title} className="pl-6">
-              <span className="absolute -left-[7px] mt-1.5 h-3 w-3 rounded-full bg-accent" />
-              <p className="text-xs font-semibold uppercase tracking-wider text-accent">{t.date}</p>
-              <h3 className="font-display text-lg font-semibold text-foreground mt-1">{t.title}</h3>
-              <p className="text-muted-foreground text-sm mt-1 leading-relaxed">{t.body}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-
-    <GallerySection />
-    <TransparencySection />
-    <CTABand />
-  </Layout>
-);
-
-export default Impact;
+import Layout from '@/components/Layout';
+import PageHeader from '@/components/PageHeader';
+import GallerySection from '@/components/GallerySection';
+import CTABand from '@/components/CTABand';
+import { Section, Metrics, StoryCards, ContentStatus } from '@/features/platform/Shared';
+import { useContent, areas } from '@/features/platform/data';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+const Impact=()=>{const stories=useContent('impact_story');return <Layout><PageHeader eyebrow="Our Impact" title="Turning Hope Into Action" subtitle="We measure our work not only by the activities we organize, but by the opportunities we help create, the communities we engage and the partnerships we build."/><Section title="Community-led change"><div className="max-w-4xl text-muted-foreground leading-relaxed space-y-5"><p>Mabawa Uplift Foundation works at community level, bringing together young people, volunteers, professionals, institutions and partners around practical initiatives.</p><p>Our impact grows through collaboration. From community outreach and education to environmental action, youth empowerment and mental health awareness, our goal is to create meaningful opportunities and contribute to stronger, more resilient communities.</p></div></Section><Section title="Impact at a Glance" tone><Metrics/></Section><Section title="Where We Focus"><div className="grid md:grid-cols-3 gap-6">{areas.filter((_,i)=>[0,1,2,3,4,7].includes(i)).map(([t,b])=><article key={t} className="border border-border rounded-lg p-6"><h3 className="font-display text-xl font-bold mb-4">{t}</h3><p className="text-muted-foreground leading-relaxed">{b}</p></article>)}</div></Section><Section title="Impact Stories" tone><ContentStatus loading={stories.isLoading} error={stories.error}/><StoryCards items={stories.data??[]}/></Section><GallerySection/><Section title="Documented in Pride of MKUDESA" eyebrow="Fourth edition · 2026"><p className="text-muted-foreground max-w-2xl mb-6">Mabawa’s identity, community action and message of gratitude feature on pages 31–33 of the magazine.</p><Button asChild><Link to="/news/mkudesa-fourth-edition-feature">Read the Magazine Feature →</Link></Button></Section><CTABand title="Help Us Create More Impact" actions={[{label:'Volunteer',to:'/get-involved#volunteer'},{label:'Partner With Us',to:'/partnerships#partner-form'},{label:'Support Our Work',to:'/donate'}]}/></Layout>};export default Impact;

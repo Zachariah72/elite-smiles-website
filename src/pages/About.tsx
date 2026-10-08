@@ -1,50 +1,11 @@
-import Layout from "@/components/Layout";
-import PageHeader from "@/components/PageHeader";
-import TeamSection from "@/components/TeamSection";
-import CTABand from "@/components/CTABand";
-import { org, coreValues, foundingMembers } from "@/config/site";
-
-const About = () => (
-  <Layout>
-    <PageHeader eyebrow="Who We Are" title="About Mabawa Uplift Foundation" subtitle={org.intro} />
-
-    <section className="py-16 md:py-24 bg-background">
-      <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8">
-        <div className="bg-card border border-border rounded-2xl p-8">
-          <h2 className="font-display text-2xl font-bold text-foreground mb-3">Our Vision</h2>
-          <p className="text-muted-foreground leading-relaxed">{org.vision}</p>
-        </div>
-        <div className="bg-card border border-border rounded-2xl p-8">
-          <h2 className="font-display text-2xl font-bold text-foreground mb-3">Our Mission</h2>
-          <p className="text-muted-foreground leading-relaxed">{org.mission}</p>
-        </div>
-        <div className="md:col-span-2 bg-card border border-border rounded-2xl p-8">
-          <h2 className="font-display text-2xl font-bold text-foreground mb-3">Our Story</h2>
-          <p className="text-muted-foreground leading-relaxed">{org.about}</p>
-          <p className="text-muted-foreground leading-relaxed mt-4">
-            Founding members: {foundingMembers.join(", ")}.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section className="py-16 md:py-24 bg-card border-y border-border">
-      <div className="container mx-auto px-4">
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground text-center mb-12">Our Values</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {coreValues.map((v) => (
-            <div key={v.title} className="bg-background border border-border rounded-xl p-6">
-              <h3 className="font-display font-semibold text-foreground mb-2">{v.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{v.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <TeamSection />
-    <CTABand />
-  </Layout>
-);
-
-export default About;
+import Layout from '@/components/Layout';
+import PageHeader from '@/components/PageHeader';
+import TeamSection from '@/components/TeamSection';
+import CTABand from '@/components/CTABand';
+import { org } from '@/config/site';
+import { Section, Metrics, PartnersDirectory, ContentStatus } from '@/features/platform/Shared';
+import { areas, useContent, details } from '@/features/platform/data';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
+import athena from '@/assets/athena-1.jpg';
+const About=()=>{const timeline=useContent('timeline'); const programs=useContent('program');const page=useContent('page');const about=page.data?.find(i=>i.slug==='about');return <Layout><PageHeader eyebrow="Giving Wings to Hope" title="About Mabawa Uplift Foundation" subtitle="Mabawa Uplift Foundation is a Kenyan youth-led community organization committed to empowering young people, strengthening communities and creating opportunities for meaningful and sustainable change."/><Section title="Who We Are"><div className="grid md:grid-cols-2 gap-10 items-center"><div className="space-y-5 text-muted-foreground leading-relaxed">{about?about.body.split('\n').filter(Boolean).map((p,i)=><p key={i}>{p}</p>):<><p>Mabawa Uplift Foundation is a community-focused organization working to uplift young people and communities through practical initiatives that respond to social, educational, health, environmental and economic challenges.</p><p>Our work brings together young people, community members, professionals, institutions, organizations and other partners to create opportunities, strengthen community participation and support locally relevant solutions.</p><p>We believe that lasting change begins when communities are empowered to participate, young people are given opportunities to lead, and different stakeholders work together toward a common purpose.</p></>}</div><img src={athena} alt="Mabawa volunteers and learners at Athena School outreach" className="w-full aspect-[4/3] object-cover rounded-lg"/></div></Section><Section title="Mission & Vision" tone><div className="grid md:grid-cols-2 gap-12">{[['Our Vision',org.vision],['Our Mission',org.mission]].map(([t,b])=><div key={t}><h3 className="text-xl font-display font-semibold text-primary mb-4">{t}</h3><p className="text-muted-foreground leading-relaxed">{b}</p></div>)}</div></Section><Section title="Our Approach"><div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">{[['Listen','We listen to communities and seek to understand the challenges and opportunities that matter locally.'],['Empower','We create opportunities for young people and community members to develop skills, participate and lead.'],['Connect','We connect communities with institutions, professionals, organizations and opportunities.'],['Act','We turn ideas into practical community initiatives and collaborative action.']].map(([t,b],i)=><div key={t} className="border-t-2 border-primary pt-5"><p className="text-accent text-sm mb-3">0{i+1}</p><h3 className="font-display text-xl font-bold">{t}</h3><p className="mt-3 text-muted-foreground leading-relaxed">{b}</p></div>)}</div></Section><Section title="Our Areas of Work" tone><div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">{(programs.data?.length?programs.data.map(i=>[i.title,i.excerpt]):areas).map(([t,b])=><article key={t} className="bg-background border border-border rounded-lg p-6"><h3 className="font-display font-semibold text-lg mb-3">{t}</h3><p className="text-sm text-muted-foreground leading-relaxed mb-5">{b}</p><Button asChild variant="link" className="px-0"><Link to={t.includes('Environment')?'/projects/project-green-kenya':'/programs'}>Learn More →</Link></Button></article>)}</div></Section><Section title="Our Values"><div className="grid grid-cols-2 md:grid-cols-3 gap-5">{['Hope','Integrity','Compassion','Youth Empowerment','Community','Inclusion','Sustainability','Accountability','Collaboration'].map(v=><h3 key={v} className="font-display text-lg font-semibold border-b border-border pb-5 text-primary">{v}</h3>)}</div></Section><Section title="Our Story" tone><ContentStatus loading={timeline.isLoading} error={timeline.error}/><ol className="border-l-2 border-primary space-y-8 pl-6">{timeline.data?.slice().reverse().map(t=><li key={t.id}><p className="text-accent text-sm font-semibold">{details(t).date}</p><h3 className="font-display text-xl font-bold mt-2">{t.title}</h3><p className="text-muted-foreground mt-3 max-w-3xl">{t.body}</p></li>)}</ol></Section><TeamSection/><Section title="Our Impact" tone><Metrics/></Section><Section title="Working Together"><PartnersDirectory/></Section><CTABand title="Be Part of the Change" actions={[{label:'Get Involved',to:'/get-involved'},{label:'Support Our Work',to:'/donate'},{label:'Partner With Us',to:'/partnerships'}]}/></Layout>};export default About;

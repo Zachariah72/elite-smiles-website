@@ -1,66 +1,11 @@
-import Layout from "@/components/Layout";
-import PageHeader from "@/components/PageHeader";
-import CTABand from "@/components/CTABand";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { HandHeart, Users, Handshake, GraduationCap } from "lucide-react";
-
-const ways = [
-  {
-    icon: Users,
-    title: "Volunteer With Us",
-    desc: "Join outreach days, mentorship sessions, clean-ups and school visits. We onboard volunteers for every activity we run.",
-    to: "/register",
-    cta: "Join the Movement",
-  },
-  {
-    icon: HandHeart,
-    title: "Support Community Action",
-    desc: "Fund sanitary towels, learning materials, transport and outreach logistics. Every contribution is recorded and reported.",
-    to: "/donate",
-    cta: "Give Wings to Hope",
-  },
-  {
-    icon: Handshake,
-    title: "Partner With Mabawa",
-    desc: "Schools, companies, county offices and fellow organisations can co-deliver programs with us.",
-    to: "/partnerships",
-    cta: "Partner With Us",
-  },
-  {
-    icon: GraduationCap,
-    title: "Become a Member",
-    desc: "Members receive a Mabawa membership card, take part in decisions and lead activities in their own counties.",
-    to: "/register",
-    cta: "Become a Member",
-  },
-];
-
-const GetInvolved = () => (
-  <Layout>
-    <PageHeader
-      eyebrow="Get Involved"
-      title="There is a place for you at Mabawa"
-      subtitle="Volunteer, give, partner or become a member — every role moves a community forward."
-    />
-    <section className="py-16 md:py-24 bg-background">
-      <div className="container mx-auto px-4 grid sm:grid-cols-2 gap-6">
-        {ways.map(({ icon: Icon, ...w }) => (
-          <article key={w.title} className="bg-card border border-border rounded-2xl p-8 shadow-card">
-            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
-              <Icon className="h-6 w-6 text-primary" />
-            </div>
-            <h2 className="font-display text-xl font-bold text-foreground mb-3">{w.title}</h2>
-            <p className="text-muted-foreground leading-relaxed mb-6">{w.desc}</p>
-            <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
-              <Link to={w.to}>{w.cta}</Link>
-            </Button>
-          </article>
-        ))}
-      </div>
-    </section>
-    <CTABand />
-  </Layout>
-);
-
-export default GetInvolved;
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Users, Briefcase, GraduationCap, Wrench, Handshake, Heart, CalendarDays, ArrowUpRight } from 'lucide-react';
+import Layout from '@/components/Layout';import PageHeader from '@/components/PageHeader';import CTABand from '@/components/CTABand';
+import { Button } from '@/components/ui/button';import { Input } from '@/components/ui/input';
+import EngagementForm from '@/features/platform/EngagementForm';
+import { Section, ContentStatus, Subscribe } from '@/features/platform/Shared';
+import { useContent, availability, details, opportunityCategories } from '@/features/platform/data';
+export function Opportunities(){const q=useContent('opportunity');const[search,setSearch]=useState(''),[category,setCategory]=useState(''),[county,setCounty]=useState(''),[mode,setMode]=useState(''),[status,setStatus]=useState('');const rows=(q.data??[]).filter(i=>[i.title,i.body,i.excerpt,...Object.values(details(i))].join(' ').toLowerCase().includes(search.toLowerCase())&&(!category||i.category===category)&&(!county||details(i).county===county)&&(!mode||details(i).mode===mode)&&(!status||availability(i)===status));return <Section id="opportunities" title="Open Opportunities" tone><div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-8"><Input aria-label="Search opportunities" placeholder="Search title, skills or location" value={search} onChange={e=>setSearch(e.target.value)}/>{[[category,setCategory,['All categories',...opportunityCategories]],[county,setCounty,['All counties',...Array.from(new Set(q.data?.map(i=>details(i).county).filter(Boolean)))]],[mode,setMode,['All work modes','Remote','Hybrid','On-site']],[status,setStatus,['All deadlines','OPEN','CLOSING SOON','CLOSED']]].map(([value,set,options],n)=><select key={n} aria-label={['Category','County','Work mode','Deadline status'][n]} className="border border-input bg-background rounded-md px-3 py-2 text-sm" value={value as string} onChange={e=>(set as (v:string)=>void)(e.target.value)}>{(options as string[]).map((o,j)=><option key={o} value={j===0?'':o}>{o}</option>)}</select>)}</div><ContentStatus loading={q.isLoading} error={q.error}/>{!q.isLoading&&!q.error&&!rows.length&&<div className="py-10 border-y border-border"><Briefcase className="text-primary mb-5"/><p className="text-muted-foreground max-w-3xl">{q.data?.length?'No opportunities match these filters.':'No open opportunities at the moment. Check back soon or join our volunteer network to be notified when new opportunities become available.'}</p></div>}<div className="grid md:grid-cols-2 gap-6">{rows.map(i=><article className="p-6 bg-background border border-border rounded-lg" key={i.id}><p className="text-accent text-xs font-semibold">{i.category} · {availability(i)}</p><h3 className="font-display text-xl font-bold mt-3">{i.title}</h3><p className="text-muted-foreground text-sm mt-2">{details(i).organization} · {details(i).location} · {details(i).mode}</p><p className="mt-4 text-muted-foreground">{i.excerpt}</p><p className="text-sm mt-4">Deadline: {i.deadline?new Date(i.deadline).toLocaleDateString():'Not specified'}</p><Button asChild variant="outline" className="mt-5"><Link to={`/opportunities/${i.slug}`}>{availability(i)==='CLOSED'?'View Details':'Apply Now'}</Link></Button></article>)}</div></Section>}
+const ways=[{Icon:Users,title:'Volunteer',desc:'Give your time and skills to community initiatives.',to:'#volunteer',cta:'Volunteer Now'},{Icon:Briefcase,title:'Apply for Opportunities',desc:'Explore jobs, internships, attachments, fellowships, training and scholarships.',to:'#opportunities',cta:'View Opportunities'},{Icon:GraduationCap,title:'Become a Member',desc:'Join the Mabawa community and participate in initiatives and activities.',to:'#membership',cta:'Become a Member'},{Icon:Wrench,title:'Share Your Skills',desc:'Contribute professional expertise and practical skills to community initiatives.',to:'#skills',cta:'Share Your Skills'},{Icon:Handshake,title:'Partner With Us',desc:'Develop and support community-focused initiatives together.',to:'/partnerships#partner-form',cta:'Become a Partner'},{Icon:Heart,title:'Support Our Projects',desc:'Contribute financial, material, technical or professional support.',to:'/donate',cta:'Support Our Work'},{Icon:CalendarDays,title:'Join an Event',desc:'Participate in upcoming outreaches, campaigns and community events.',to:'#events',cta:'View Events'}];
+const GetInvolved=()=>{const events=useContent('event');const[event,setEvent]=useState<string|null>(null);return <Layout><PageHeader eyebrow="Get Involved" title="Your Skills. Your Voice. Your Action." subtitle="There are many ways to contribute to positive change. Whether you have time, skills, resources, ideas or professional expertise, you can help give wings to hope."/><Section title="There is a Place for You"><div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">{ways.map(({Icon,...w})=><article className="p-6 border border-border rounded-lg bg-card" key={w.title}><Icon className="text-primary h-7 w-7 mb-5"/><h3 className="font-display text-xl font-bold">{w.title}</h3><p className="text-muted-foreground leading-relaxed my-4">{w.desc}</p><Button asChild variant="outline"><Link to={w.to.startsWith('#')?`/get-involved${w.to}`:w.to}>{w.cta}<ArrowUpRight className="ml-2 h-4 w-4"/></Link></Button></article>)}</div></Section><Opportunities/><Section id="volunteer" title="Volunteer With Mabawa"><div className="max-w-4xl"><EngagementForm kind="volunteer" cta="Submit Volunteer Application"/></div></Section><Section id="membership" title="Become a Member" tone><p className="text-muted-foreground mb-6">Start with a membership interest application, or complete registration to receive your Mabawa membership card.</p><Button asChild variant="outline" className="mb-8"><Link to="/register">Register for a Membership Card</Link></Button><div className="max-w-4xl"><EngagementForm kind="membership" cta="Join Mabawa"/></div></Section><Section id="skills" title="Share Your Skills"><div className="max-w-4xl"><EngagementForm kind="skills" cta="Share Your Skills"/></div></Section><Section id="events" title="Upcoming Events" tone><ContentStatus loading={events.isLoading} error={events.error}/>{!events.isLoading&&!events.data?.length&&<p className="text-muted-foreground">Event registration opens when verified events are published. <Link to="/programs" className="text-primary underline">View planned outreach programs.</Link></p>}<div className="grid md:grid-cols-2 gap-6">{events.data?.map(i=><article className="bg-background border border-border rounded-lg p-6" key={i.id}><h3 className="font-display text-xl font-bold">{i.title}</h3><p className="text-accent my-3">{details(i).date} · {details(i).time} · {details(i).location}</p><p className="text-muted-foreground mb-5">{i.excerpt}</p>{availability(i)==='CLOSED'?<p>Registration closed</p>:<Button onClick={()=>setEvent(event===i.id?null:i.id)}>Register for Event</Button>}{event===i.id&&<div className="mt-6"><EngagementForm kind="event" contentId={i.id}/></div>}</article>)}</div></Section><Section id="notifications" title="Notify Me About Opportunities"><div className="max-w-2xl"><Subscribe alerts/></div></Section><CTABand title="Whatever your contribution, there is a place for you in the Mabawa community." actions={[{label:'Volunteer',to:'/get-involved#volunteer'},{label:'Partner With Us',to:'/partnerships#partner-form'},{label:'Support Our Work',to:'/donate'}]}/></Layout>};export default GetInvolved;
