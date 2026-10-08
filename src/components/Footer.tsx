@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import { Instagram, Music2, Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Subscribe } from "@/features/platform/Shared";
 import logo from "@/assets/logo.png";
 import { org, contact, socials } from "@/config/site";
 
 const quickLinks = [
+  { label: "News & Stories", to: "/news" },
+  { label: "Get Involved", to: "/get-involved" },
   { label: "About", to: "/about" },
   { label: "Programs", to: "/programs" },
   { label: "Projects", to: "/projects" },
@@ -80,11 +82,7 @@ const Footer = () => (
         <div>
           <h2 className="font-display font-semibold text-foreground mb-4 text-base">Newsletter</h2>
           <p className="text-muted-foreground text-sm mb-3">Get outreach updates and stories from the communities we serve.</p>
-          <form onSubmit={(e) => e.preventDefault()} className="flex gap-2">
-            <label htmlFor="newsletter-email" className="sr-only">Email address</label>
-            <Input id="newsletter-email" type="email" placeholder="Your email" className="bg-muted border-border text-foreground placeholder:text-muted-foreground" />
-            <Button size="sm" className="gradient-warm shrink-0 text-primary-foreground">Subscribe</Button>
-          </form>
+          <Subscribe />
           <Button asChild className="w-full mt-4 bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">
             <Link to="/donate">Support Our Work</Link>
           </Button>
@@ -94,8 +92,8 @@ const Footer = () => (
       <div className="border-t border-border pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-muted-foreground">
         <p>© 2026 {org.name}. All rights reserved.</p>
         <div className="flex gap-5">
-          <Link to="/transparency" className="hover:text-primary">Privacy Policy</Link>
-          <Link to="/transparency" className="hover:text-primary">Terms</Link>
+          <Link to="/privacy" className="hover:text-primary">Privacy Policy</Link>
+          <Link to="/terms" className="hover:text-primary">Terms</Link>
           <Link to="/safeguarding" className="hover:text-primary">Safeguarding</Link>
         </div>
       </div>

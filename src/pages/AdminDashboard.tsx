@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ArrowLeft, Search, Users, UserCheck, Download } from "lucide-react";
+import AdminPlatform, { exportCsv } from "@/features/platform/AdminPlatform";
 import type { Tables } from "@/integrations/supabase/types";
 
 const AdminDashboard = () => {
@@ -96,6 +97,7 @@ const AdminDashboard = () => {
           </Card>
         </div>
 
+        <Button variant="outline" className="mb-5" onClick={() => exportCsv(filtered, "mabawa-members")}><Download className="mr-2 h-4 w-4" />Export Members</Button>
         {/* Search */}
         <div className="relative mb-6">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -156,6 +158,7 @@ const AdminDashboard = () => {
             </div>
           </CardContent>
         </Card>
+        <AdminPlatform />
       </div>
     </div>
   );
