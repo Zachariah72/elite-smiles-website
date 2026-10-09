@@ -15,6 +15,13 @@
       "when": 1791401760260,
       "tag": "0001_mabawa_private_upload_policies",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791507391045,
+      "tag": "0002_protect_member_photos_and_duplicate_applications",
+      "breakpoints": true
     }
   ]
 }
