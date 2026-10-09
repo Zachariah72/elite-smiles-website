@@ -26,7 +26,7 @@ export const contact = {
   phoneHref: "tel:+254724301244",
   donationPhone: "0792 326083",
   donationPhoneHref: "tel:+254792326083",
-  location: "Kenya",
+  location: "Nairobi, Kenya",
 };
 
 export const socials = [

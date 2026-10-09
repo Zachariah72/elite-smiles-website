@@ -40,7 +40,7 @@ const HeroSection = () => {
       <AnimatePresence mode="sync">
         <motion.img
           key={index}
-          src={slides[index].src}
+          src={assetUrl(slides[index].src)}
           alt={slides[index].alt}
           initial={{ opacity: 0, x: 60, scale: 1.06 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
