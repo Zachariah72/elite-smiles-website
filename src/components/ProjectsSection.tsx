@@ -40,26 +40,6 @@ const ProjectsSection = () => (
         <p className="mt-4 font-display text-lg text-accent">Collect · Create · Empower · Sustain</p>
       </motion.div>
 
-      <div className="grid sm:grid-cols-3 gap-6 mb-14">
-        {stats.map((s, i) => {
-          const Icon = s.icon;
-          return (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="bg-card border border-border rounded-2xl p-6 text-center shadow-card"
-            >
-              <Icon className="h-6 w-6 text-accent mx-auto mb-3" />
-              <p className="font-display text-3xl font-bold text-foreground">{s.value}</p>
-              <p className="text-muted-foreground text-sm mt-1">{s.label}</p>
-            </motion.div>
-          );
-        })}
-      </div>
-
       <div className="grid md:grid-cols-3 gap-6 mb-14">
         {pillars.map((p, i) => (
           <motion.div

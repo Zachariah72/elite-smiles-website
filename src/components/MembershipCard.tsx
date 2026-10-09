@@ -146,7 +146,7 @@ const MembershipCard = ({ member, side }: Props) => {
           <div>
             <div className="font-bold text-[10px] text-[#1B5E20] mb-1">Contact</div>
             <div>📞 0724301244</div>
-            <div>✉️ abigailisika@gmail.com</div>
+            <div>✉️ mabawaupliftfoundation@gmail.com</div>
           </div>
 
           {/* Signatures */}
@@ -175,7 +175,7 @@ const MembershipCard = ({ member, side }: Props) => {
           <path d="M0,15 Q107,0 214,10 Q321,20 428,5 L428,40 L0,40 Z" fill="#1B5E20" />
         </svg>
         <div className="absolute bottom-2 left-0 right-0 text-center text-white text-[8px] font-medium tracking-wider">
-          www.mabawauplift.org
+          mabawaupliftfoundation.lovable.app
         </div>
       </div>
     </div>

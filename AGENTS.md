@@ -5,3 +5,6 @@
 - Keep applicant documents in a private storage bucket readable only by server-validated administrators, because CVs contain personal information.
 - Reuse the existing `has_role` database function for authorization, because client-side admin checks are not a security boundary.
 - Treat configured payment methods as instructions and support-intent records until a real payment provider is connected, because the site must never simulate transactions.
+
+- Reuse the platform content and engagement modules inside existing pages and admin, because the membership system must remain intact.
+- Resolve asset pointers through the hosted preview only on localhost, because the local development server does not serve the platform CDN route.

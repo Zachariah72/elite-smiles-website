@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { CalendarDays, MapPin } from "lucide-react";
+import { assetUrl } from "@/features/platform/data";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/config/site";
 import athena1 from "@/assets/athena-1.jpg";
@@ -39,7 +40,7 @@ const HeroSection = () => {
       <AnimatePresence mode="sync">
         <motion.img
           key={index}
-          src={slides[index].src}
+          src={assetUrl(slides[index].src)}
           alt={slides[index].alt}
           initial={{ opacity: 0, x: 60, scale: 1.06 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}

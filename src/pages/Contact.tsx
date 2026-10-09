@@ -16,23 +16,23 @@ const Contact = () => (
 
     <section className="py-14 bg-background">
       <div className="container mx-auto px-4 grid sm:grid-cols-3 gap-6">
-        <a href={`mailto:${contact.email}`} className="bg-card border border-border rounded-2xl p-6 shadow-card hover:border-primary transition-colors">
+        <a href={`mailto:${contact.email}`} className="bg-card border border-border rounded-lg p-6 shadow-card hover:border-primary transition-colors">
           <Mail className="h-6 w-6 text-primary mb-3" />
           <h2 className="font-display font-semibold text-foreground mb-1">Email</h2>
           <p className="text-muted-foreground text-sm break-all">{contact.email}</p>
         </a>
-        <a href={contact.phoneHref} className="bg-card border border-border rounded-2xl p-6 shadow-card hover:border-primary transition-colors">
+        <a href={contact.phoneHref} className="bg-card border border-border rounded-lg p-6 shadow-card hover:border-primary transition-colors">
           <Phone className="h-6 w-6 text-accent mb-3" />
           <h2 className="font-display font-semibold text-foreground mb-1">Phone</h2>
           <p className="text-muted-foreground text-sm">{contact.phone}</p>
         </a>
-        <div className="bg-card border border-border rounded-2xl p-6 shadow-card">
+        <div className="bg-card border border-border rounded-lg p-6 shadow-card">
           <MapPin className="h-6 w-6 text-primary mb-3" />
           <h2 className="font-display font-semibold text-foreground mb-1">Location</h2>
           <p className="text-muted-foreground text-sm">{contact.location}</p>
         </div>
       </div>
-      <div className="container mx-auto px-4 mt-6 flex gap-3">
+      <div className="container mx-auto px-4 mt-6 flex flex-wrap gap-3">
         {socials.map((s) => (
           <a
             key={s.label}

@@ -1,13 +1,14 @@
 # Mabawa platform roadmap
 
-- [ ] Apply uploaded five-page specification and publish the supplied MKUDESA fourth-edition feature images
+- [x] Apply uploaded five-page specification and publish the supplied MKUDESA fourth-edition feature images
 
-- [ ] Add secured data model and private uploads
-- [ ] Build reusable public form and content data utilities
-- [ ] Rebuild Get Involved and opportunities portal
-- [ ] Build Support Our Work
-- [ ] Upgrade News & Stories and article pages
-- [ ] Expand About Us
-- [ ] Expand protected admin management and exports
-- [ ] Connect navigation, footer, CTAs, legal pages, and updated email
-- [ ] Verify public and admin flows on mobile and desktop
+- [x] Add secured data model and private uploads
+- [x] Build reusable public form and content data utilities
+- [x] Rebuild Get Involved and opportunities portal
+- [x] Build Support Our Work
+- [x] Upgrade News & Stories and article pages
+- [x] Expand About Us
+- [x] Expand protected admin management and exports
+- [x] Connect navigation, footer, CTAs, legal pages, and updated email
+- [x] Verify public page rendering, magazine reader and saved contact flow on desktop and narrow screens
+- [ ] Verify authenticated admin editing, review, private downloads and exports — blocked: requesting account has no administrator role

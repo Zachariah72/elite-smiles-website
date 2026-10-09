@@ -70,7 +70,7 @@ const GetInvolvedSection = () => (
             Partner with Mabawa Uplift Foundation to create shared value. We offer sponsorship packages, CSR programs, and collaborative opportunities that make a real difference.
           </p>
           <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-            <a href="mailto:abigailisika@gmail.com">Become a Partner</a>
+            <a href="mailto:mabawaupliftfoundation@gmail.com">Become a Partner</a>
           </Button>
         </motion.div>
       </div>
