@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import ProgramsSection from "@/components/ProgramsSection";
+import { assetUrl } from "@/features/platform/data";
 import { org, projects } from "@/config/site";
 import { CalendarDays, Clock, MapPin, Users } from "lucide-react";
 import { motion } from "framer-motion";
@@ -36,7 +37,7 @@ const Programs = () => (
             >
               {p.poster && (
                 <img
-                  src={p.poster}
+                  src={assetUrl(p.poster)}
                   alt={`${p.title} poster`}
                   loading="lazy"
                   className="w-full rounded-xl border border-border mb-5"

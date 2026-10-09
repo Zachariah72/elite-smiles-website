@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { CalendarDays, MapPin } from "lucide-react";
+import { assetUrl } from "@/features/platform/data";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/config/site";
 import athena1 from "@/assets/athena-1.jpg";

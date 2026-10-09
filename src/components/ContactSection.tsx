@@ -14,7 +14,7 @@ const ContactSection = () => (
       <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
         <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-8">
           {[
-            { icon: Mail, label: "Email", value: "abigailisika@gmail.com", href: "mailto:abigailisika@gmail.com" },
+            { icon: Mail, label: "Email", value: "mabawaupliftfoundation@gmail.com", href: "mailto:mabawaupliftfoundation@gmail.com" },
             { icon: Phone, label: "Phone", value: "+254 724 301 244", href: "tel:+254724301244" },
             { icon: MapPin, label: "Location", value: "Kenya", href: "#" },
           ].map(({ icon: Icon, label, value, href }) => (

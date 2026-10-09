@@ -4,8 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior }); }, [pathname]);
+  const { pathname, hash } = useLocation();
+  useEffect(() => { if (hash) { const timer = window.setTimeout(() => document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: "smooth" }), 100); return () => window.clearTimeout(timer); } window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior }); }, [pathname, hash]);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
