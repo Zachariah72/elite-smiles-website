@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -6,25 +6,171 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { CheckCircle, Send, Loader2 } from 'lucide-react';
 import { volunteerAreas, partnerCategories, type Payload } from './data';
-export type Field={name:string;label:string;type?:string;options?:string[];optional?:boolean};
-const phone:Field={name:'phone',label:'Phone',type:'tel'}; const county:Field={name:'county',label:'County'};
-export const formFields:Record<string,Field[]>={
- volunteer:[phone,county,{name:'town',label:'Town / Area'},{name:'age',label:'Age',type:'number'},{name:'occupation',label:'Education / Occupation'},{name:'skills',label:'Skills',type:'textarea'},{name:'interests',label:'Areas of Interest',options:volunteerAreas,type:'checks'},{name:'availability',label:'Availability'},{name:'experience',label:'Previous Experience',type:'textarea',optional:true},{name:'motivation',label:'Motivation',type:'textarea'},{name:'document',label:'CV (optional, PDF or Word, up to 5 MB)',type:'file',optional:true}],
- membership:[phone,county,{name:'age',label:'Age',type:'number'},{name:'occupation',label:'Occupation / School'},{name:'interests',label:'Areas of Interest',type:'checks',options:volunteerAreas},{name:'category',label:'Membership Category',options:['18+ Membership','Junior Membership (under 18)']},{name:'motivation',label:'Why would you like to join?',type:'textarea'}],
- skills:[phone,{name:'profession',label:'Profession'},{name:'skills',label:'Skills',type:'textarea'},{name:'organization',label:'Organization',optional:true},county,{name:'availability',label:'Availability'},{name:'interests',label:'Areas where you can support Mabawa',type:'checks',options:volunteerAreas},{name:'message',label:'Message',type:'textarea'}],
- partnership:[{name:'organization',label:'Organization Name'},{name:'organization_type',label:'Organization Type',options:partnerCategories},{name:'position',label:'Position'},phone,{name:'website',label:'Website',type:'url',optional:true},county,{name:'partnership_type',label:'Partnership Type',options:['Program Partnership','Technical Partnership','Resource Partnership','Financial Support','Knowledge & Training','Media Partnership','Volunteer Partnership','Referral & Opportunity Partnership']},{name:'interest',label:'Area of Interest'},{name:'collaboration',label:'Proposed Collaboration',type:'textarea'},{name:'contribution',label:'Expected Contribution',type:'textarea'},{name:'message',label:'Message',type:'textarea',optional:true},{name:'document',label:'Proposal (optional, PDF or Word, up to 5 MB)',type:'file',optional:true}],
- contact:[phone,{name:'subject',label:'Subject'},{name:'message',label:'Message',type:'textarea'}],
- story:[{name:'location',label:'Location'},{name:'relationship',label:'Relationship to Mabawa'},{name:'title',label:'Story Title'},{name:'story',label:'Story',type:'textarea'},{name:'document',label:'Photograph (optional, up to 5 MB)',type:'file',optional:true},{name:'video',label:'Video Link',type:'url',optional:true}],
- application:[phone,county,{name:'motivation',label:'Application / Cover Letter',type:'textarea'},{name:'skills',label:'Relevant Skills'},{name:'document',label:'CV (optional, PDF or Word, up to 5 MB)',type:'file',optional:true}],
- event:[phone,county],
- in_kind:[{name:'organization',label:'Organization',optional:true},phone,county,{name:'items',label:'Items Offered',type:'textarea'},{name:'quantity',label:'Quantity'},{name:'project',label:'Intended Project'},{name:'message',label:'Message',type:'textarea'}],
- support:[phone,{name:'message',label:'Message',type:'textarea',optional:true}]
+
+export type Field = { name: string; label: string; type?: string; options?: string[]; optional?: boolean };
+
+const phone: Field = { name: 'phone', label: 'Phone', type: 'tel' };
+const county: Field = { name: 'county', label: 'County' };
+
+export const formFields: Record<string, Field[]> = {
+  volunteer: [phone, county, { name: 'town', label: 'Town / Area' }, { name: 'age', label: 'Age', type: 'number' }, { name: 'occupation', label: 'Education / Occupation' }, { name: 'skills', label: 'Skills', type: 'textarea' }, { name: 'interests', label: 'Areas of Interest', options: volunteerAreas, type: 'checks' }, { name: 'availability', label: 'Availability' }, { name: 'experience', label: 'Previous Experience', type: 'textarea', optional: true }, { name: 'motivation', label: 'Motivation', type: 'textarea' }, { name: 'document', label: 'CV (optional, PDF or Word, up to 5 MB)', type: 'file', optional: true }],
+  membership: [phone, county, { name: 'age', label: 'Age', type: 'number' }, { name: 'occupation', label: 'Occupation / School' }, { name: 'interests', label: 'Areas of Interest', type: 'checks', options: volunteerAreas }, { name: 'category', label: 'Membership Category', options: ['18+ Membership', 'Junior Membership (under 18)'] }, { name: 'motivation', label: 'Why would you like to join?', type: 'textarea' }],
+  skills: [phone, { name: 'profession', label: 'Profession' }, { name: 'skills', label: 'Skills', type: 'textarea' }, { name: 'organization', label: 'Organization', optional: true }, county, { name: 'availability', label: 'Availability' }, { name: 'interests', label: 'Areas where you can support Mabawa', type: 'checks', options: volunteerAreas }, { name: 'message', label: 'Message', type: 'textarea' }],
+  partnership: [{ name: 'organization', label: 'Organization Name' }, { name: 'organization_type', label: 'Organization Type', options: partnerCategories }, { name: 'position', label: 'Position' }, phone, { name: 'website', label: 'Website', type: 'url', optional: true }, county, { name: 'partnership_type', label: 'Partnership Type', options: ['Program Partnership', 'Technical Partnership', 'Resource Partnership', 'Financial Support', 'Knowledge & Training', 'Media Partnership', 'Volunteer Partnership', 'Referral & Opportunity Partnership'] }, { name: 'interest', label: 'Area of Interest' }, { name: 'collaboration', label: 'Proposed Collaboration', type: 'textarea' }, { name: 'contribution', label: 'Expected Contribution', type: 'textarea' }, { name: 'message', label: 'Message', type: 'textarea', optional: true }, { name: 'document', label: 'Proposal (optional, PDF or Word, up to 5 MB)', type: 'file', optional: true }],
+  contact: [phone, { name: 'subject', label: 'Subject' }, { name: 'message', label: 'Message', type: 'textarea' }],
+  story: [{ name: 'location', label: 'Location' }, { name: 'relationship', label: 'Relationship to Mabawa' }, { name: 'title', label: 'Story Title' }, { name: 'story', label: 'Story', type: 'textarea' }, { name: 'document', label: 'Photograph (optional, up to 5 MB)', type: 'file', optional: true }, { name: 'video', label: 'Video Link', type: 'url', optional: true }],
+  application: [phone, county, { name: 'motivation', label: 'Application / Cover Letter', type: 'textarea' }, { name: 'skills', label: 'Relevant Skills' }, { name: 'document', label: 'CV (optional, PDF or Word, up to 5 MB)', type: 'file', optional: true }],
+  event: [phone, county],
+  in_kind: [{ name: 'organization', label: 'Organization', optional: true }, phone, county, { name: 'items', label: 'Items Offered', type: 'textarea' }, { name: 'quantity', label: 'Quantity' }, { name: 'project', label: 'Intended Project' }, { name: 'message', label: 'Message', type: 'textarea' }],
+  support: [phone, { name: 'message', label: 'Message', type: 'textarea', optional: true }],
 };
-export default function EngagementForm({kind,contentId,extra={},fields,cta,confirmation}:{kind:string;contentId?:string;extra?:Payload;fields?:Field[];cta?:string;confirmation?:string}) {
- const [busy,setBusy]=useState(false),[done,setDone]=useState(false),[error,setError]=useState('');
- const fs=fields??formFields[kind]??[];
- async function submit(e:React.FormEvent<HTMLFormElement>) {e.preventDefault(); const form=e.currentTarget; const fd=new FormData(form); if(fd.get('website_check'))return; setBusy(true);setError('');try{ const payload:Payload={...extra,consent:true}; for(const f of fs){if(f.type==='file') continue; payload[f.name]=f.type==='checks'?fd.getAll(f.name).map(String):String(fd.get(f.name)??'');} const file=fd.get('document'); if(file instanceof File && file.size){if(!['application/pdf','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document','image/jpeg','image/png','image/webp'].includes(file.type)||file.size>5*1024*1024||!/\.(pdf|docx?|jpe?g|png|webp)$/i.test(file.name)) throw new Error('Choose a supported file smaller than 5 MB.');const path=`submissions/${crypto.randomUUID()}/${crypto.randomUUID()}.${file.name.split('.').pop()?.toLowerCase()}`;const {error:uploadError}=await supabase.storage.from('applicant-documents').upload(path,file,{upsert:false});if(uploadError)throw uploadError;payload.document_path=path;}
- const {error:saveError}=await supabase.rpc('submit_engagement',{_kind:kind,_name:String(fd.get('full_name')),_email:String(fd.get('email')),_payload:payload,...(contentId?{_content_id:contentId}:{})});if(saveError)throw saveError;setDone(true);}catch(err){setError(err instanceof Error?err.message:'Your submission could not be saved. Please try again.');}finally{setBusy(false);}}
- if(done)return <div role="status" className="border-l-4 border-primary bg-secondary p-6"><CheckCircle className="text-primary mb-3"/><h3 className="font-display text-xl font-semibold">Thank you for being part of Mabawa.</h3><p className="mt-2">{confirmation??'Your submission has been received. Our team will review it and contact you.'}</p></div>;
- return <form onSubmit={submit} className="grid sm:grid-cols-2 gap-5"><div className="hidden" aria-hidden="true"><Input name="website_check" tabIndex={-1} autoComplete="off"/></div><label className="space-y-2 text-sm font-medium">{kind==='partnership'?'Contact Person':'Full Name'}<Input className="bg-background mt-2" name="full_name" required minLength={2} maxLength={200}/></label><label className="space-y-2 text-sm font-medium">Email<Input className="bg-background mt-2" name="email" type="email" required maxLength={254}/></label>{fs.map(f=><div key={f.name} className={f.type==='textarea'||f.type==='checks'?'sm:col-span-2':''}><label className="block text-sm font-medium mb-2" htmlFor={`${kind}-${f.name}`}>{f.label}</label>{f.type==='checks'?<fieldset className="grid grid-cols-2 md:grid-cols-3 gap-3"><legend className="sr-only">{f.label}</legend>{f.options?.map(o=><label key={o} className="flex items-start gap-2 text-sm"><input type="checkbox" name={f.name} value={o} className="mt-1 accent-primary"/>{o}</label>)}</fieldset>:f.options?<select id={`${kind}-${f.name}`} name={f.name} required={!f.optional} className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"><option value="">Select an option</option>{f.options.map(o=><option key={o}>{o}</option>)}</select>:f.type==='textarea'?<Textarea id={`${kind}-${f.name}`} name={f.name} required={!f.optional} maxLength={15000} rows={4} className="bg-background"/>:<Input id={`${kind}-${f.name}`} name={f.name} type={f.type??'text'} min={f.type==='number'?1:undefined} max={f.type==='number'?120:undefined} required={!f.optional} accept={f.type==='file'?'.pdf,.doc,.docx,.jpg,.jpeg,.png,.webp':undefined} className="bg-background"/>}</div>)}<label className="sm:col-span-2 flex items-start gap-3 text-sm text-muted-foreground"><input name="consent" type="checkbox" required className="mt-1"/><span>{kind==='story'?'I have permission to share this story and its media for review and possible publication.':kind==='membership'?'I agree to respectful participation, safeguarding and Mabawa’s code of conduct.':'I agree to Mabawa reviewing and contacting me about this submission.'} <Link to="/privacy" className="underline text-primary">Privacy notice</Link>. For under-18 applicants, parent or guardian approval is required before participation.</span></label>{error&&<p role="alert" className="sm:col-span-2 text-destructive">{error}</p>}<div className="sm:col-span-2"><Button disabled={busy} type="submit">{busy?<Loader2 className="mr-2 h-4 w-4 animate-spin"/>:<Send className="mr-2 h-4 w-4"/>}{busy?'Sending…':cta??'Submit Application'}</Button></div></form>;
+
+type EngagementFormProps = {
+  kind: string;
+  contentId?: string;
+  extra?: Payload;
+  fields?: Field[];
+  cta?: string;
+  confirmation?: string;
+};
+
+export default function EngagementForm({ kind, contentId, extra = {}, fields, cta, confirmation }: EngagementFormProps) {
+  const [busy, setBusy] = useState(false);
+  const [done, setDone] = useState(false);
+  const [error, setError] = useState('');
+  const fs = fields ?? formFields[kind] ?? [];
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const fd = new FormData(form);
+    if (fd.get('website_check')) return;
+
+    setBusy(true);
+    setError('');
+    try {
+      const payload: Payload = { ...extra, consent: true };
+      for (const field of fs) {
+        if (field.type === 'file') continue;
+        payload[field.name] = field.type === 'checks'
+          ? fd.getAll(field.name).map(String)
+          : String(fd.get(field.name) ?? '');
+      }
+
+      const file = fd.get('document');
+      if (file instanceof File && file.size > 0) {
+        const allowedTypes = [
+          'application/pdf',
+          'application/msword',
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+          'image/jpeg',
+          'image/png',
+          'image/webp',
+        ];
+        if (!allowedTypes.includes(file.type) || file.size > 5 * 1024 * 1024 || !/\.(pdf|docx?|jpe?g|png|webp)$/i.test(file.name)) {
+          throw new Error('Choose a supported file smaller than 5 MB.');
+        }
+
+        const uploadForm = new FormData();
+        uploadForm.set('file', file, file.name);
+        const { data: uploaded, error: uploadError } = await supabase.functions.invoke('upload-applicant-document', { body: uploadForm });
+        if (uploadError || typeof uploaded?.path !== 'string') {
+          throw new Error('The document could not be uploaded. Please try again.');
+        }
+        payload.document_path = uploaded.path;
+      }
+
+      const { error: saveError } = await supabase.rpc('submit_engagement', {
+        _kind: kind,
+        _name: String(fd.get('full_name')),
+        _email: String(fd.get('email')),
+        _payload: payload,
+        ...(contentId ? { _content_id: contentId } : {}),
+      });
+      if (saveError) throw saveError;
+      setDone(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Your submission could not be saved. Please try again.');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  if (done) {
+    return (
+      <div role="status" className="border-l-4 border-primary bg-secondary p-6">
+        <CheckCircle className="mb-3 text-primary" />
+        <h3 className="font-display text-xl font-semibold">Thank you for being part of Mabawa.</h3>
+        <p className="mt-2">{confirmation ?? 'Your submission has been received. Our team will review it and contact you.'}</p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={submit} className="grid gap-5 sm:grid-cols-2">
+      <div className="hidden" aria-hidden="true">
+        <Input name="website_check" tabIndex={-1} autoComplete="off" />
+      </div>
+      <label className="space-y-2 text-sm font-medium">
+        {kind === 'partnership' ? 'Contact Person' : 'Full Name'}
+        <Input className="mt-2 bg-background" name="full_name" required minLength={2} maxLength={200} />
+      </label>
+      <label className="space-y-2 text-sm font-medium">
+        Email
+        <Input className="mt-2 bg-background" name="email" type="email" required maxLength={254} />
+      </label>
+      {fs.map((field) => (
+        <div key={field.name} className={field.type === 'textarea' || field.type === 'checks' ? 'sm:col-span-2' : ''}>
+          <label className="mb-2 block text-sm font-medium" htmlFor={`${kind}-${field.name}`}>{field.label}</label>
+          {field.type === 'checks' ? (
+            <fieldset className="grid grid-cols-2 gap-3 md:grid-cols-3">
+              <legend className="sr-only">{field.label}</legend>
+              {field.options?.map((option) => (
+                <label key={option} className="flex items-start gap-2 text-sm">
+                  <input type="checkbox" name={field.name} value={option} className="mt-1 accent-primary" />
+                  {option}
+                </label>
+              ))}
+            </fieldset>
+          ) : field.options ? (
+            <select id={`${kind}-${field.name}`} name={field.name} required={!field.optional} className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm">
+              <option value="">Select an option</option>
+              {field.options.map((option) => <option key={option}>{option}</option>)}
+            </select>
+          ) : field.type === 'textarea' ? (
+            <Textarea id={`${kind}-${field.name}`} name={field.name} required={!field.optional} maxLength={15000} rows={4} className="bg-background" />
+          ) : (
+            <Input
+              id={`${kind}-${field.name}`}
+              name={field.name}
+              type={field.type ?? 'text'}
+              min={field.type === 'number' ? 1 : undefined}
+              max={field.type === 'number' ? 120 : undefined}
+              required={!field.optional}
+              accept={field.type === 'file' ? '.pdf,.doc,.docx,.jpg,.jpeg,.png,.webp' : undefined}
+              className="bg-background"
+            />
+          )}
+        </div>
+      ))}
+      <label className="flex items-start gap-3 text-sm text-muted-foreground sm:col-span-2">
+        <input name="consent" type="checkbox" required className="mt-1" />
+        <span>
+          {kind === 'story'
+            ? 'I have permission to share this story and its media for review and possible publication.'
+            : kind === 'membership'
+              ? 'I agree to respectful participation, safeguarding and Mabawa’s code of conduct.'
+              : 'I agree to Mabawa reviewing and contacting me about this submission.'}{' '}
+          <Link to="/privacy" className="text-primary underline">Privacy notice</Link>. For under-18 applicants, parent or guardian approval is required before participation.
+        </span>
+      </label>
+      {error && <p role="alert" className="text-destructive sm:col-span-2">{error}</p>}
+      <div className="sm:col-span-2">
+        <Button disabled={busy} type="submit">
+          {busy ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Send className="mr-2 h-4 w-4" />}
+          {busy ? 'Sending…' : cta ?? 'Submit Application'}
+        </Button>
+      </div>
+    </form>
+  );
 }

@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS applicant_upload ON storage.objects;

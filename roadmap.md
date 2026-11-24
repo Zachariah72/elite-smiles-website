@@ -1,5 +1,8 @@
 # Mabawa platform roadmap
 
+- [x] Enable checks against known leaked passwords
+- [x] Route public applicant-document uploads through a server-validated uploader and remove direct public storage writes
+
 - [x] Apply uploaded five-page specification and publish the supplied MKUDESA fourth-edition feature images
 
 - [x] Add secured data model and private uploads
