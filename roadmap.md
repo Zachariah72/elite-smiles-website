@@ -1,5 +1,9 @@
 # Mabawa platform roadmap
 
+- [ ] Apply the uploaded master modernization brief across the existing site without replacing working platform features
+- [ ] Resolve the official telephone number from the user's confirmation before changing contact records
+- [ ] Audit and complete only the confirmed page, design, workflow, accessibility, SEO and validation gaps
+
 - [x] Enable checks against known leaked passwords
 - [x] Route public applicant-document uploads through a server-validated uploader and remove direct public storage writes
 
