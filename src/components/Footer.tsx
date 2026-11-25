@@ -1,101 +1,78 @@
 import { Link } from "react-router-dom";
-import { Instagram, Music2, Mail, Phone, MapPin } from "lucide-react";
+import { Instagram, Music2, Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Subscribe } from "@/features/platform/Shared";
 import logo from "@/assets/logo.png";
 import { org, contact, socials } from "@/config/site";
 
 const quickLinks = [
-  { label: "News & Stories", to: "/news" },
-  { label: "Get Involved", to: "/get-involved" },
-  { label: "About", to: "/about" },
+  { label: "About Mabawa", to: "/about" },
   { label: "Programs", to: "/programs" },
   { label: "Projects", to: "/projects" },
-  { label: "Impact", to: "/impact" },
-  { label: "Partnerships", to: "/partnerships" },
-  { label: "Donate", to: "/donate" },
-  { label: "Contact", to: "/contact" },
+  { label: "Our Impact", to: "/impact" },
+  { label: "Get Involved", to: "/get-involved" },
+  { label: "News & Stories", to: "/news" },
+  { label: "Events", to: "/events" },
+  { label: "Gallery", to: "/gallery" },
 ];
 
 const policyLinks = [
   { label: "Governance", to: "/governance" },
   { label: "Transparency", to: "/transparency" },
   { label: "Safeguarding", to: "/safeguarding" },
-  { label: "Mental Health", to: "/mental-health" },
+  { label: "Privacy", to: "/privacy" },
+  { label: "Terms", to: "/terms" },
 ];
 
 const Footer = () => (
-  <footer className="bg-card pt-16 pb-8 border-t border-border">
+  <footer className="border-t border-border bg-card pt-14 pb-7">
     <div className="container mx-auto px-4">
-      <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 mb-12">
+      <div className="grid gap-10 pb-12 md:grid-cols-2 xl:grid-cols-[1.25fr_0.8fr_0.8fr_1fr]">
         <div>
-          <div className="flex items-center gap-2 mb-4">
-            <img src={logo} alt={`${org.name} logo`} className="h-11 w-11 object-contain" loading="lazy" />
-            <span className="font-display font-bold text-lg text-foreground leading-tight">
-              Mabawa Uplift<span className="block text-xs font-body font-normal text-primary">{org.motto}</span>
-            </span>
-          </div>
-          <p className="text-muted-foreground text-sm leading-relaxed">
-            A youth-led Kenyan organization empowering young people, supporting education, advancing mental wellness and strengthening communities.
-          </p>
-          <div className="flex gap-3 mt-5">
-            {socials.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noreferrer noopener"
-                aria-label={`${s.label} ${s.handle}`}
-                className="w-9 h-9 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
-              >
-                {s.icon === "instagram" ? <Instagram className="w-4 h-4" /> : <Music2 className="w-4 h-4" />}
+          <Link to="/" aria-label={`${org.name} home`} className="mb-5 inline-flex items-center gap-3">
+            <img src={logo} alt="" className="h-12 w-12 object-contain" width={48} height={48} loading="lazy" />
+            <span className="font-display text-base font-extrabold leading-tight text-foreground">Mabawa Uplift Foundation<span className="mt-1 block font-body text-xs font-medium text-primary">{org.motto}</span></span>
+          </Link>
+          <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">A youth-led Kenyan organization working to uplift communities and create meaningful opportunities.</p>
+          <div className="mt-5 flex gap-3">
+            {socials.map((social) => (
+              <a key={social.label} href={social.href} target="_blank" rel="noreferrer noopener" aria-label={`${social.label} ${social.handle}`} className="inline-flex h-10 w-10 items-center justify-center border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary">
+                {social.icon === "instagram" ? <Instagram className="h-4 w-4" /> : <Music2 className="h-4 w-4" />}
               </a>
             ))}
           </div>
         </div>
 
-        <nav aria-label="Quick links">
-          <h2 className="font-display font-semibold text-foreground mb-4 text-base">Quick Links</h2>
-          <ul className="space-y-2">
-            {quickLinks.map((l) => (
-              <li key={l.to}>
-                <Link to={l.to} className="text-muted-foreground hover:text-primary transition-colors text-sm">{l.label}</Link>
-              </li>
-            ))}
+        <nav aria-label="Footer navigation">
+          <h2 className="mb-4 font-display text-base font-bold text-foreground">Explore</h2>
+          <ul className="grid grid-cols-2 gap-x-4 gap-y-3">
+            {quickLinks.map((link) => <li key={link.to}><Link to={link.to} className="text-sm text-muted-foreground transition-colors hover:text-primary">{link.label}</Link></li>)}
           </ul>
         </nav>
 
         <div>
-          <h2 className="font-display font-semibold text-foreground mb-4 text-base">Contact</h2>
-          <ul className="space-y-3 text-sm">
-            <li><a className="flex items-start gap-2 text-muted-foreground hover:text-primary" href={`mailto:${contact.email}`}><Mail className="w-4 h-4 mt-0.5 shrink-0" />{contact.email}</a></li>
-            <li><a className="flex items-center gap-2 text-muted-foreground hover:text-primary" href={contact.phoneHref}><Phone className="w-4 h-4 shrink-0" />{contact.phone}</a></li>
-            <li className="flex items-center gap-2 text-muted-foreground"><MapPin className="w-4 h-4 shrink-0" />{contact.location}</li>
+          <h2 className="mb-4 font-display text-base font-bold text-foreground">Contact</h2>
+          <ul className="space-y-4 text-sm">
+            <li><a className="flex items-start gap-3 break-all text-muted-foreground hover:text-primary" href={`mailto:${contact.email}`}><Mail className="mt-0.5 h-4 w-4 shrink-0" />{contact.email}</a></li>
+            <li><a className="flex items-center gap-3 text-muted-foreground hover:text-primary" href={contact.phoneHref}><Phone className="h-4 w-4 shrink-0" />{contact.phone}</a></li>
+            <li className="flex items-center gap-3 text-muted-foreground"><MapPin className="h-4 w-4 shrink-0" />{contact.location}</li>
           </ul>
-          <ul className="mt-5 space-y-2">
-            {policyLinks.map((l) => (
-              <li key={l.to}><Link to={l.to} className="text-muted-foreground hover:text-primary transition-colors text-sm">{l.label}</Link></li>
-            ))}
+          <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-2">
+            {policyLinks.map((link) => <li key={link.to}><Link to={link.to} className="text-xs text-muted-foreground hover:text-primary">{link.label}</Link></li>)}
           </ul>
         </div>
 
         <div>
-          <h2 className="font-display font-semibold text-foreground mb-4 text-base">Newsletter</h2>
-          <p className="text-muted-foreground text-sm mb-3">Get outreach updates and stories from the communities we serve.</p>
+          <h2 className="mb-2 font-display text-base font-bold text-foreground">Stay connected</h2>
+          <p className="mb-4 text-sm leading-relaxed text-muted-foreground">Receive updates when verified Mabawa stories and opportunities are published.</p>
           <Subscribe />
-          <Button asChild className="w-full mt-4 bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">
-            <Link to="/donate">Support Our Work</Link>
-          </Button>
+          <Button asChild className="mt-4 w-full bg-accent text-accent-foreground hover:bg-accent/90"><Link to="/donate">Support Our Work<ArrowUpRight className="ml-2 h-4 w-4" /></Link></Button>
         </div>
       </div>
 
-      <div className="border-t border-border pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-muted-foreground">
-        <p>© 2026 {org.name}. All rights reserved.</p>
-        <div className="flex gap-5">
-          <Link to="/privacy" className="hover:text-primary">Privacy Policy</Link>
-          <Link to="/terms" className="hover:text-primary">Terms</Link>
-          <Link to="/safeguarding" className="hover:text-primary">Safeguarding</Link>
-        </div>
+      <div className="flex flex-col items-start justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground md:flex-row md:items-center">
+        <p>© {new Date().getFullYear()} {org.name}. All rights reserved.</p>
+        <Link to="/partnerships" className="font-semibold text-primary hover:underline">Partner with Mabawa</Link>
       </div>
     </div>
   </footer>

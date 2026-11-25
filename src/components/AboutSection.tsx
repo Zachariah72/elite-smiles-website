@@ -1,64 +1,29 @@
-import { motion } from "framer-motion";
-import { BookOpen, Heart, Users } from "lucide-react";
-
-const fadeIn = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.15, duration: 0.6 } }),
-};
-
-const values = [
-  { icon: BookOpen, title: "Education First", desc: "We believe every child deserves access to quality education regardless of their background." },
-  { icon: Heart, title: "Love & Care", desc: "We share love and smiles, ensuring children feel valued and supported in their journey." },
-  { icon: Users, title: "Community", desc: "We work hand-in-hand with local communities to create lasting, sustainable impact." },
-];
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { org } from "@/config/site";
 
 const AboutSection = () => (
-  <section id="about" className="py-20 md:py-28 bg-background">
-    <div className="container mx-auto px-4">
-      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} className="max-w-3xl mx-auto text-center mb-16">
-        <motion.p variants={fadeIn} custom={0} className="text-primary font-semibold uppercase tracking-wider text-sm mb-3">About Us</motion.p>
-        <motion.h2 variants={fadeIn} custom={1} className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6">
-          Who We Are
-        </motion.h2>
-        <motion.p variants={fadeIn} custom={2} className="text-muted-foreground text-lg leading-relaxed">
-          Mabawa Uplift Foundation is a Kenyan-based nonprofit dedicated to keeping children in school. Born from witnessing too many bright futures cut short by poverty, lack of supplies, and school dropouts, we took action. Our mission is simple yet powerful: <strong className="text-foreground">keep every child in school</strong> and <strong className="text-foreground">share love and smiles</strong> across Kenya and beyond.
-        </motion.p>
-      </motion.div>
-
-      <div className="grid md:grid-cols-3 gap-8">
-        {values.map((v, i) => (
-          <motion.div
-            key={v.title}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={i}
-            variants={fadeIn}
-            className="bg-card rounded-xl p-8 shadow-card hover:shadow-card-hover transition-shadow text-center"
-          >
-            <div className="w-14 h-14 rounded-full gradient-warm flex items-center justify-center mx-auto mb-5">
-              <v.icon className="w-7 h-7 text-primary-foreground" />
-            </div>
-            <h3 className="font-display text-xl font-semibold text-foreground mb-3">{v.title}</h3>
-            <p className="text-muted-foreground">{v.desc}</p>
-          </motion.div>
-        ))}
+  <section id="about" className="bg-background py-16 md:py-24">
+    <div className="container mx-auto grid gap-12 px-4 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+      <div>
+        <p className="mb-4 text-sm font-bold text-accent">Who We Are</p>
+        <h2 className="max-w-xl font-display text-3xl font-extrabold leading-tight text-foreground md:text-4xl">Local knowledge. Shared opportunity.</h2>
+        <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">{org.intro}</p>
+        <Button asChild variant="outline" className="mt-7">
+          <Link to="/about">Discover Mabawa<ArrowRight className="ml-2 h-4 w-4" /></Link>
+        </Button>
       </div>
-
-      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} custom={0} className="mt-16 bg-card rounded-2xl p-8 md:p-12 grid md:grid-cols-2 gap-8 border border-border">
-        <div>
-          <h3 className="font-display text-2xl font-bold text-foreground mb-4">Our Mission</h3>
-          <p className="text-muted-foreground leading-relaxed">
-            To ensure every child in Kenya has the opportunity to stay in school, receive essential learning materials, and grow in an environment filled with love and hope.
-          </p>
-        </div>
-        <div>
-          <h3 className="font-display text-2xl font-bold text-foreground mb-4">Our Vision</h3>
-          <p className="text-muted-foreground leading-relaxed">
-            A Kenya where no child is forced to leave school due to poverty — where every smile represents a future full of possibility.
-          </p>
-        </div>
-      </motion.div>
+      <div className="grid gap-8 sm:grid-cols-2">
+        <article className="border-t-2 border-primary pt-5">
+          <p className="mb-3 text-sm font-bold text-primary">Our Mission</p>
+          <p className="text-base leading-relaxed text-muted-foreground">{org.mission}</p>
+        </article>
+        <article className="border-t-2 border-accent pt-5">
+          <p className="mb-3 text-sm font-bold text-accent">Our Vision</p>
+          <p className="text-base leading-relaxed text-muted-foreground">{org.vision}</p>
+        </article>
+      </div>
     </div>
   </section>
 );

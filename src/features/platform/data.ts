@@ -4,7 +4,23 @@ import type { Tables, Json } from '@/integrations/supabase/types';
 export type Content = Tables<'platform_content'>;
 export function details(item: Content): Record<string, string> { return (item.details && typeof item.details === 'object' && !Array.isArray(item.details) ? item.details : {}) as Record<string,string>; }
 export function useContent(kind?: string) { return useQuery({ queryKey: ['content',kind], queryFn: async () => { let q=supabase.from('platform_content').select('*').in('status',['published','scheduled','closed']).lte('published_at',new Date().toISOString()).order('published_at',{ascending:false}); if(kind) q=q.eq('kind',kind); const {data,error}=await q; if(error) throw error; return data ?? []; }}); }
-export function availability(item: Content) { if(item.status==='closed'||(item.deadline && Date.parse(item.deadline)<=Date.now())) return 'CLOSED'; if(item.deadline && Date.parse(item.deadline)-Date.now()<7*86400000) return 'CLOSING SOON'; return 'OPEN'; }
+export function isUpcomingEventDate(date?: string | null, now = Date.now()) {
+  if (!date) return false;
+  const start = Date.parse(date);
+  return Number.isFinite(start) && start > now;
+}
+export function isUpcomingEvent(item: Content, now = Date.now()) {
+  if (item.kind !== 'event') return false;
+  const eventDate = details(item).date || item.deadline;
+  return isUpcomingEventDate(eventDate, now) && !(item.deadline && Date.parse(item.deadline) <= now);
+}
+export function availability(item: Content, now = Date.now()) {
+  const deadline = item.deadline ? Date.parse(item.deadline) : Number.NaN;
+  const eventDate = item.kind === 'event' ? Date.parse(details(item).date || '') : Number.NaN;
+  if (item.status === 'closed' || (Number.isFinite(deadline) && deadline <= now) || (Number.isFinite(eventDate) && eventDate <= now)) return 'CLOSED';
+  if (Number.isFinite(deadline) && deadline - now < 7 * 86400000) return 'CLOSING SOON';
+  return 'OPEN';
+}
 export const categories=['Community Outreach','Youth','Education','Mental Health','Environment','Project Green Kenya','Healthcare','Partnerships','Opportunities','Announcements','Events','Success Stories','Leadership'];
 export const volunteerAreas=['Community Outreach','Youth Empowerment','Education','Mental Health','Environment','Project Green Kenya','Healthcare','Media','Photography/Videography','Technology','Graphic Design','Research','Fundraising','Events','Administration','Other'];
 export const opportunityCategories=['Jobs','Internships','Industrial Attachments','Volunteer Opportunities','Fellowships','Scholarships','Training','Consultancies','Project Positions','Youth Opportunities','Leadership Opportunities','Other Opportunities'];
