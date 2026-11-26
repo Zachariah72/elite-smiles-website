@@ -1,92 +1,50 @@
-import { motion } from "framer-motion";
-import { Recycle, Users, Target, CalendarDays, Leaf } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowRight, Leaf } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { featuredProjects } from "@/config/site";
+import farmImage from "@/assets/smart-farm.jpg";
 
-const stats = [
-  { icon: CalendarDays, value: "12", label: "Month Program" },
-  { icon: Users, value: "100+", label: "Youth Engaged" },
-  { icon: Target, value: "5", label: "Schools Targeted" },
-];
+const ProjectsSection = () => {
+  const greenProject = featuredProjects[0];
+  const farmProject = featuredProjects[1];
 
-const pillars = [
-  { title: "Environment", desc: "Cleaner streets, healthier communities." },
-  { title: "Youth", desc: "Skills, jobs, leadership and purpose." },
-  { title: "Circular Economy", desc: "Reducing waste, creating value, sustaining lives." },
-];
+  return (
+    <section id="projects" className="border-y border-border bg-card py-16 md:py-24">
+      <div className="container mx-auto px-4">
+        <div className="mb-10 max-w-3xl">
+          <p className="mb-3 text-sm font-bold text-accent">Featured initiatives</p>
+          <h2 className="font-display text-3xl font-extrabold leading-tight text-foreground md:text-4xl">Ideas with room to grow</h2>
+          <p className="mt-4 leading-relaxed text-muted-foreground">Each initiative is labelled by its current status. Updates will be added as verified milestones become available.</p>
+        </div>
 
-const stages = [
-  { n: "1", title: "Mobilise", desc: "Recruit community volunteers and youth teams for collection drives." },
-  { n: "2", title: "Collect", desc: "Street sweeps, estate drives and school campaigns across target areas." },
-  { n: "3", title: "Sort & Clean", desc: "Separate, wash and grade plastics by type at the storage hub." },
-  { n: "4", title: "Create", desc: "Youth artists craft upcycled art pieces, sculptures and products." },
-  { n: "5", title: "Sell & Send", desc: "Art sold at markets; bulk plastic sent to refining companies." },
-];
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
+          <article className="border-t-2 border-accent pt-6">
+            <div className="flex items-center gap-3 text-accent"><Leaf className="h-5 w-5" /><p className="text-sm font-bold">{greenProject.status}</p></div>
+            <h3 className="mt-4 font-display text-2xl font-bold text-foreground">{greenProject.title}</h3>
+            <p className="mt-4 leading-relaxed text-muted-foreground">{greenProject.description}</p>
+            <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-primary">
+              <li>Plastic recovery</li><li>Recycling and upcycling</li><li>Community climate action</li>
+            </ul>
+            <Button asChild variant="link" className="mt-4 h-auto px-0 text-primary">
+              <Link to={`/projects/${greenProject.slug}`}>Explore Project Green Kenya<ArrowRight className="ml-2 h-4 w-4" /></Link>
+            </Button>
+          </article>
 
-const ProjectsSection = () => (
-  <section id="projects" className="py-20 md:py-28 bg-background">
-    <div className="container mx-auto px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-14"
-      >
-        <p className="text-accent font-semibold uppercase tracking-wider text-sm mb-3">Project 01 · Environment</p>
-        <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">Project Green Kenya</h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto mt-4">
-          Plastic collection, community art and environmental impact in Nairobi, Kenya. A community-driven initiative
-          that collects plastic waste, transforms it into art, and channels usable material to Kenyan recycling
-          companies — while empowering youth and building a greener Kenya.
-        </p>
-        <p className="mt-4 font-display text-lg text-accent">Collect · Create · Empower · Sustain</p>
-      </motion.div>
-
-      <div className="grid md:grid-cols-3 gap-6 mb-14">
-        {pillars.map((p, i) => (
-          <motion.div
-            key={p.title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            className="bg-card rounded-2xl p-6 border border-border"
-          >
-            <div className="w-12 h-12 rounded-xl gradient-warm flex items-center justify-center mb-4">
-              {p.title === "Circular Economy" ? (
-                <Recycle className="h-6 w-6 text-primary-foreground" />
-              ) : p.title === "Youth" ? (
-                <Users className="h-6 w-6 text-primary-foreground" />
-              ) : (
-                <Leaf className="h-6 w-6 text-primary-foreground" />
-              )}
+          <article className="grid gap-6 border-t-2 border-primary pt-6 sm:grid-cols-[0.9fr_1.1fr]">
+            <img src={farmImage} alt="Farm site at Ruaka for the Integrated Smart Farm, which is under construction" loading="lazy" className="aspect-[4/3] w-full object-cover" />
+            <div>
+              <p className="text-sm font-bold text-primary">{farmProject.status}</p>
+              <h3 className="mt-3 font-display text-2xl font-bold text-foreground">{farmProject.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{farmProject.description}</p>
+              <Button asChild variant="link" className="mt-3 h-auto px-0 text-primary">
+                <Link to={`/projects/${farmProject.slug}`}>View Farm Project<ArrowRight className="ml-2 h-4 w-4" /></Link>
+              </Button>
             </div>
-            <h3 className="font-display text-lg font-bold text-foreground mb-2">{p.title}</h3>
-            <p className="text-muted-foreground text-sm leading-relaxed">{p.desc}</p>
-          </motion.div>
-        ))}
+          </article>
+        </div>
       </div>
-
-      <h3 className="font-display text-2xl font-bold text-foreground text-center mb-2">How We Work</h3>
-      <p className="text-muted-foreground text-center mb-8">A 5-stage circular model</p>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        {stages.map((s, i) => (
-          <motion.div
-            key={s.n}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.08 }}
-            className="bg-card rounded-xl p-5 border border-border"
-          >
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-accent text-accent-foreground font-bold text-sm mb-3">
-              {s.n}
-            </span>
-            <h4 className="font-semibold text-foreground mb-1">{s.title}</h4>
-            <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default ProjectsSection;

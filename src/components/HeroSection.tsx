@@ -1,127 +1,127 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { CalendarDays, MapPin } from "lucide-react";
-import { assetUrl } from "@/features/platform/data";
+import { ArrowRight, CalendarDays, MapPin, Pause, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { projects } from "@/config/site";
+import { assetUrl, details, isUpcomingEvent, useContent } from "@/features/platform/data";
+import { org } from "@/config/site";
 import athena1 from "@/assets/athena-1.jpg";
 import athena2 from "@/assets/athena-2.jpg";
 import athena3 from "@/assets/athena-3.jpg";
-import athena4 from "@/assets/athena-4.jpg";
 import athena5 from "@/assets/athena-5.jpg";
-import athena6 from "@/assets/athena-6.jpg";
-import smartFarm from "@/assets/smart-farm.jpg";
+import farmImage from "@/assets/smart-farm.jpg";
 import kenyenyaPoster from "@/assets/kenyenya-poster.png.asset.json";
 
-const slides: { src: string; alt: string; contain?: boolean }[] = [
-  { src: athena2, alt: "Mabawa Uplift volunteers addressing learners at Athena School, Thika" },
-  { src: kenyenyaPoster.url, alt: "Poster for the Kenyenya Community Outreach on 19 October 2026", contain: true },
-  { src: athena5, alt: "A learner receiving sanitary towels during the Athena School outreach" },
-  { src: smartFarm, alt: "The Integrated Smart Farm in Ruaka" },
-  { src: athena1, alt: "Distributing sanitary towels to learners at Athena School" },
-  { src: athena3, alt: "Team receiving Marvel Girl sanitary towel donations from Marvel Five Investments" },
-  { src: athena4, alt: "A volunteer talking with a learner during the outreach" },
-  { src: athena6, alt: "Volunteers sorting donations before distribution at Athena School" },
+const slides = [
+  { src: athena2, alt: "Mabawa volunteers engaging with learners at Athena School in Thika" },
+  { src: farmImage, alt: "Ruaka farm site for the Integrated Smart Farm project" },
+  { src: athena1, alt: "Mabawa volunteers supporting learners during the Athena School outreach" },
+  { src: athena3, alt: "Mabawa team with Marvel Five Investments at the Athena School outreach" },
+  { src: athena5, alt: "A learner receiving menstrual health supplies during the Athena School outreach" },
+  { src: athena2, alt: "Kenyenya Community Health Outreach poster shown with a Mabawa outreach photograph", poster: kenyenyaPoster.url },
 ];
-
-const upcoming = projects.filter((p) => p.status === "Upcoming / Proposed").slice(0, 3);
 
 const HeroSection = () => {
   const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const events = useContent("event");
+  const upcoming = (events.data ?? []).filter((event) => isUpcomingEvent(event)).slice(0, 2);
+  const slide = slides[index];
 
   useEffect(() => {
-    const id = setInterval(() => setIndex((i) => (i + 1) % slides.length), 5000);
-    return () => clearInterval(id);
-  }, []);
+    if (paused || reduceMotion) return;
+    const timer = window.setInterval(() => setIndex((value) => (value + 1) % slides.length), 6500);
+    return () => window.clearInterval(timer);
+  }, [paused, reduceMotion]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
-      <AnimatePresence mode="sync">
+    <section aria-label="Mabawa Uplift Foundation introduction" className="relative isolate flex min-h-[min(46rem,calc(100svh-7rem))] items-center overflow-hidden bg-foreground">
+      <AnimatePresence mode="sync" initial={false}>
         <motion.img
-          key={index}
-          src={assetUrl(slides[index].src)}
-          alt={slides[index].alt}
-          initial={{ opacity: 0, x: 60, scale: 1.06 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          exit={{ opacity: 0, x: -60, scale: 1.02 }}
-          transition={{ duration: 1.2, ease: "easeInOut" }}
-          className={`absolute inset-0 w-full h-full ${slides[index].contain ? "object-contain" : "object-cover"}`}
+          key={`${index}-background`}
+          src={assetUrl(slide.src)}
+          alt={slide.alt}
+          initial={reduceMotion ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={reduceMotion ? undefined : { opacity: 0 }}
+          transition={{ duration: reduceMotion ? 0 : 1.1, ease: "easeInOut" }}
+          className="absolute inset-0 h-full w-full object-cover"
+          fetchPriority="high"
         />
       </AnimatePresence>
-      <div className="absolute inset-0" style={{ background: "var(--gradient-hero-overlay)" }} />
+      <div aria-hidden="true" className="absolute inset-0 bg-foreground/70" />
 
-      <div className="relative z-10 container mx-auto px-4 text-center py-32">
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+      {slide.poster && (
+        <motion.img
+          key={`${index}-poster`}
+          src={assetUrl(slide.poster)}
+          alt="Kenyenya Community Health Outreach poster"
+          initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="font-display text-4xl sm:text-5xl md:text-7xl font-bold text-on-media mb-6 leading-tight"
-        >
-          Giving Wings<br />to Hope
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-on-media-muted text-lg md:text-xl max-w-2xl mx-auto mb-10 font-body"
-        >
-          Empowering communities. Inspiring young people. Creating lasting impact.
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
-        >
-          <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8">
-            <Link to="/get-involved">Get Involved</Link>
-          </Button>
-          <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-lg px-8">
-            <Link to="/donate">Support Our Work</Link>
-          </Button>
-        </motion.div>
+          transition={{ duration: reduceMotion ? 0 : 0.45 }}
+          className="absolute bottom-20 right-4 z-10 max-h-[34%] w-24 bg-background p-1.5 object-contain shadow-card md:bottom-16 md:right-[7%] md:top-8 md:max-h-[80%] md:w-[min(26vw,21rem)] md:p-3"
+        />
+      )}
 
-        {upcoming.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-14"
-          >
-            <p className="text-on-media font-semibold uppercase tracking-wider text-xs mb-4">Upcoming Outreaches</p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
-              {upcoming.map((p) => (
-                <Link
-                  key={p.slug}
-                  to="/programs"
-                  className="text-left bg-background/92 backdrop-blur border border-border rounded-xl p-4 hover:border-primary transition-colors shadow-card"
-                >
-                  <h3 className="font-display font-semibold text-foreground text-base mb-2">{p.title}</h3>
-                  {p.date && (
-                    <p className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <CalendarDays className="h-4 w-4 text-primary shrink-0" /> {p.date}
-                    </p>
-                  )}
-                  <p className="flex items-start gap-2 text-sm text-muted-foreground mt-1">
-                    <MapPin className="h-4 w-4 text-accent mt-0.5 shrink-0" /> {p.location}
-                  </p>
-                </Link>
-              ))}
-            </div>
-          </motion.div>
-        )}
+      <div className="container relative z-10 mx-auto px-4 py-12 md:py-16">
+        <div className={slide.poster ? "max-w-[72%] md:max-w-3xl" : "max-w-3xl"}>
+          <p className="mb-5 text-sm font-bold text-on-media-muted">Mabawa Uplift Foundation · Kenya</p>
+          <h1 className="font-display text-4xl font-extrabold leading-tight text-on-media sm:text-5xl md:text-6xl">
+            Giving Wings to Hope.<br />Building Opportunities for All.
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-on-media-muted md:text-lg">
+            {org.intro}
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+              <Link to="/programs">Explore Our Work<ArrowRight className="ml-2 h-4 w-4" /></Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="border-background/80 bg-background/10 text-on-media hover:bg-background hover:text-foreground">
+              <Link to="/partnerships">Partner With Us</Link>
+            </Button>
+          </div>
+          <Button asChild variant="link" className="mt-2 h-auto px-0 text-on-media-muted hover:text-on-media">
+            <Link to="/get-involved">Get involved with Mabawa<ArrowRight className="ml-2 h-4 w-4" /></Link>
+          </Button>
+
+          <div className="mt-7 border-t border-background/30 pt-4" aria-live="polite">
+            {upcoming.length ? (
+              <div className="flex flex-wrap items-start gap-x-7 gap-y-3">
+                <p className="text-xs font-bold uppercase text-on-media-muted">Upcoming</p>
+                {upcoming.map((event) => (
+                  <Link key={event.id} to={`/events/${event.slug}`} className="text-sm text-on-media hover:underline">
+                    <span className="font-semibold">{event.title}</span>
+                    <span className="mt-1 flex flex-wrap items-center gap-x-3 text-xs text-on-media-muted">
+                      {details(event).date && <span className="inline-flex items-center gap-1"><CalendarDays className="h-3.5 w-3.5" />{details(event).date}</span>}
+                      {details(event).location && <span className="inline-flex items-center gap-1"><MapPin className="h-3.5 w-3.5" />{details(event).location}</span>}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <p className="text-xs text-on-media-muted">Outreach dates will be shared here once confirmed.</p>
+            )}
+          </div>
+        </div>
       </div>
 
-      <div className="absolute bottom-6 left-0 right-0 z-10 flex justify-center gap-2">
-        {slides.map((s, i) => (
-          <button
-            key={s.alt}
-            aria-label={`Show slide ${i + 1}`}
-            onClick={() => setIndex(i)}
-            className={`h-2 rounded-full transition-all ${i === index ? "w-6 bg-accent" : "w-2 bg-background/60"}`}
+      <div className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1.5 rounded-full border border-background/25 bg-foreground/50 px-2 py-1.5">
+        {slides.map((item, slideIndex) => (
+          <Button
+            key={item.alt}
+            type="button"
+            variant="ghost"
+            size="icon"
+            aria-label={`Show image ${slideIndex + 1}${item.poster ? ", including the Kenyenya outreach poster" : ""}`}
+            aria-pressed={index === slideIndex}
+            onClick={() => setIndex(slideIndex)}
+            className={`h-5 w-5 min-w-5 rounded-full p-0 ${index === slideIndex ? "bg-accent hover:bg-accent" : "bg-background/60 hover:bg-background"}`}
           />
         ))}
+        <Button type="button" variant="ghost" size="icon" onClick={() => setPaused((value) => !value)} aria-label={paused ? "Play image carousel" : "Pause image carousel"} className="ml-1 h-7 w-7 text-on-media hover:bg-background/15 hover:text-on-media">
+          {paused || reduceMotion ? <Play className="h-3.5 w-3.5" /> : <Pause className="h-3.5 w-3.5" />}
+        </Button>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import ProjectsSection from "@/components/ProjectsSection";
-import SmartFarmSection from "@/components/SmartFarmSection";
+import CTABand from "@/components/CTABand";
 import { org } from "@/config/site";
 
 const Projects = () => (
@@ -9,10 +9,10 @@ const Projects = () => (
     <PageHeader
       eyebrow="Our Projects"
       title="Long-term Projects"
-      subtitle={`Flagship initiatives ${org.name} is building for lasting community impact — environment, education, heritage, and climate-smart agriculture.`}
+      subtitle={`${org.name} shares the status of each initiative clearly, distinguishing project concepts from work under development.`}
     />
     <ProjectsSection />
-    <SmartFarmSection />
+    <CTABand title="Build a project with us" actions={[{ label: "Partner With Us", to: "/partnerships#partner-form" }, { label: "Support Our Work", to: "/donate", variant: "accent" }]} />
   </Layout>
 );
 

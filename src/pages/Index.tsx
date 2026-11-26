@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import ProgramsSection from "@/components/ProgramsSection";
+import ProjectsSection from "@/components/ProjectsSection";
 import TeamSection from "@/components/TeamSection";
 import GallerySection from "@/components/GallerySection";
 import PartnersSection from "@/components/PartnersSection";
@@ -17,6 +18,7 @@ const Index = () => { const stories=useContent("story"); return (
     <AboutSection />
     <Section title="Our Impact"><Metrics /></Section>
     <ProgramsSection />
+    <ProjectsSection />
     <TeamSection />
     <GallerySection />
     <PartnersSection />

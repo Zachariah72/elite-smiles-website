@@ -85,40 +85,40 @@ export type FocusArea = { slug: string; title: string; desc: string; icon: strin
 
 export const focusAreas: FocusArea[] = [
   {
-    slug: "mental-health",
-    title: "Mental Health Awareness & Advocacy",
-    icon: "brain",
-    desc: "Promoting emotional well-being through awareness campaigns, community outreach, safe spaces, education, youth engagement, and appropriate referral and support mechanisms.",
-  },
-  {
-    slug: "education",
-    title: "Education Support",
+    slug: "education-and-mentorship",
+    title: "Education and Mentorship",
     icon: "book",
-    desc: "Supporting learners through educational outreach, school visits, stationery drives, mentorship, learning materials, and academic empowerment.",
+    desc: "Supporting learning access, mentorship and educational opportunities for children and young people.",
   },
   {
-    slug: "youth",
-    title: "Youth Empowerment",
+    slug: "youth-empowerment-and-leadership",
+    title: "Youth Empowerment and Leadership",
     icon: "rocket",
-    desc: "Providing young people with mentorship, leadership opportunities, skills development, networking, entrepreneurship, and personal development opportunities.",
+    desc: "Supporting youth leadership, participation, civic engagement and community leadership.",
   },
   {
-    slug: "community",
-    title: "Community Outreach & Charity",
+    slug: "mental-health-and-wellbeing",
+    title: "Mental Health Awareness and Wellbeing",
+    icon: "brain",
+    desc: "Promoting mental health education, awareness, emotional wellbeing and appropriate referral partnerships.",
+  },
+  {
+    slug: "community-outreach-and-humanitarian-support",
+    title: "Community Outreach and Humanitarian Support",
     icon: "handshake",
-    desc: "Supporting vulnerable communities through donations, volunteering, health outreach, social support, and community-driven initiatives.",
+    desc: "Working with communities through outreach, school visits, charity activities and support for underserved groups.",
   },
   {
-    slug: "health",
-    title: "Health Promotion",
-    icon: "stethoscope",
-    desc: "Supporting community health awareness and connecting communities with appropriate healthcare professionals and services through outreach partnerships.",
+    slug: "skills-development-and-entrepreneurship",
+    title: "Skills Development and Entrepreneurship",
+    icon: "wrench",
+    desc: "Connecting young people to practical training, entrepreneurship, professional development and employment pathways.",
   },
   {
-    slug: "environment",
+    slug: "environmental-conservation",
     title: "Environmental Sustainability",
     icon: "leaf",
-    desc: "Promoting clean-up activities, environmental awareness, recycling, conservation, and sustainable community practices.",
+    desc: "Promoting environmental awareness, responsible waste management, recycling, community clean-ups and climate action.",
   },
 ];
 
@@ -219,6 +219,23 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+export const featuredProjects = [
+  {
+    slug: "project-green-kenya",
+    title: "Project Green Kenya",
+    status: "Proposed initiative",
+    description: "A youth-led initiative concept focused on plastic recovery, recycling, upcycling and community climate action. The website will share implementation updates when activities are confirmed.",
+  },
+  {
+    slug: "integrated-smart-farm",
+    title: "Integrated Smart Farm",
+    status: "Under construction",
+    location: "Ruaka, Kiambu County",
+    description: "A climate-smart agriculture initiative designed to combine livestock, aquaculture, seedling production, renewable energy, water conservation and AI-assisted learning as a sustainable demonstration hub.",
+    acknowledgement: "The site was generously donated by Ronald Nyakwara to support the project’s development.",
+  },
+] as const;
 
 export const funding = {
   total: 70410,

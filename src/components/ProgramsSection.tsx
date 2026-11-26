@@ -33,13 +33,16 @@ const ProgramsSection = () => (
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08, duration: 0.5 }}
-              className="bg-background rounded-2xl p-7 shadow-card hover:shadow-card-hover transition-shadow border border-border"
+              className="border-t-2 border-primary bg-background p-6 transition-colors hover:border-accent"
             >
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
                 <Icon className="h-6 w-6 text-primary" />
               </div>
               <h3 className="font-display text-lg font-semibold text-foreground mb-3">{f.title}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">{f.desc}</p>
+              <Button asChild variant="link" className="mt-4 h-auto px-0 text-primary">
+                <Link to={`/programs/${f.slug}`}>Program details <span aria-hidden="true">→</span></Link>
+              </Button>
             </motion.div>
           );
         })}
